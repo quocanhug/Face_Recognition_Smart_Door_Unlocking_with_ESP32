@@ -43,8 +43,8 @@ body{font-family:"Manrope",sans-serif;background-color:#020817;scrollbar-width:t
 .stat-hover:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,210,255,.1);border-color:rgba(0,210,255,.3)}
 
 /* Table */
-table{width:100%;border-collapse:collapse;font-size:.85rem}
-thead th{background:rgba(0,210,255,.08);color:#00d2ff;font-weight:600;text-align:left;padding:10px 14px;border-bottom:1px solid rgba(0,210,255,.15);white-space:nowrap;font-family:'Inter',sans-serif;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+table{width:100%;border-collapse:collapse;font-size:1.05rem}
+thead th{background:rgba(0,210,255,.08);color:#00d2ff;font-weight:600;text-align:left;padding:10px 14px;border-bottom:1px solid rgba(0,210,255,.15);white-space:nowrap;font-family:'Inter',sans-serif;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em}
 tbody td{padding:10px 14px;border-bottom:1px solid rgba(30,41,59,.5);color:#94a3b8}
 tbody tr:hover{background:rgba(0,210,255,.03)}
 tbody tr td:first-child{color:#e2e8f0;font-weight:500}
@@ -52,8 +52,8 @@ tbody tr td:first-child{color:#e2e8f0;font-weight:500}
 /* Reusable slide components */
 .sl-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .sl-head .line{width:48px;height:1px;background:#00d2ff}
-.sl-head span{color:#00d2ff;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.3em;font-family:'Inter',sans-serif}
-.sl-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;font-family:'Space Grotesk',sans-serif;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:24px}
+.sl-head span{color:#00d2ff;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.3em;font-family:'Inter',sans-serif}
+.sl-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;font-family:'Space Grotesk',sans-serif;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:12px}
 .sl-title .grad{background:linear-gradient(90deg,#00d2ff,#0061ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .sl-grid{display:grid;gap:20px}
 .sl-grid.c2{grid-template-columns:repeat(2,1fr)}
@@ -64,14 +64,14 @@ tbody tr td:first-child{color:#e2e8f0;font-weight:500}
 .gc{background:rgba(15,23,42,.7);backdrop-filter:blur(12px);border:1px solid rgba(0,210,255,.1);border-radius:16px;padding:24px;transition:all .3s}
 .gc:hover{border-color:rgba(0,210,255,.25);transform:translateY(-2px)}
 .gc .ic{font-size:28px;margin-bottom:8px;display:block}
-.gc h4{font-size:.95rem;font-weight:700;color:#e2e8f0;margin-bottom:6px}
-.gc p{font-size:.82rem;color:#94a3b8;line-height:1.6}
+.gc h4{font-size:1.15rem;font-weight:700;color:#e2e8f0;margin-bottom:6px}
+.gc p{font-size:1.0rem;color:#94a3b8;line-height:1.6}
 .callout{background:linear-gradient(90deg,rgba(0,210,255,.08),rgba(0,97,255,.04));border:1px solid rgba(0,210,255,.15);border-left:4px solid #00d2ff;border-radius:0 12px 12px 0;padding:16px 20px;margin-top:16px}
-.callout p{color:#cbd5e1;font-size:.9rem;line-height:1.6}
+.callout p{color:#cbd5e1;font-size:1.1rem;line-height:1.6}
 .callout strong{color:#fff}
-.badge-sm{display:inline-flex;padding:2px 10px;border-radius:12px;font-size:.7rem;font-weight:700;font-family:'Inter',sans-serif}
+.badge-sm{display:inline-flex;padding:2px 10px;border-radius:12px;font-size:.9rem;font-weight:700;font-family:'Inter',sans-serif}
 .list-feat{list-style:none;display:flex;flex-direction:column;gap:10px}
-.list-feat li{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:#94a3b8;padding:10px 14px;background:rgba(15,23,42,.5);border:1px solid rgba(30,41,59,.5);border-radius:10px}
+.list-feat li{display:flex;align-items:flex-start;gap:10px;font-size:1.08rem;color:#94a3b8;padding:10px 14px;background:rgba(15,23,42,.5);border:1px solid rgba(30,41,59,.5);border-radius:10px}
 .list-feat li:hover{background:rgba(0,210,255,.04);border-color:rgba(0,210,255,.15)}
 .icon-box{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .footer-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:auto;padding-top:24px}

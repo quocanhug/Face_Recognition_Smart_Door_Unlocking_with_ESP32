@@ -1,22 +1,22 @@
 // Slide data - each entry is raw HTML for one slide
 const SLIDES = [
 
-// ===== SLIDE 1: COVER =====
-`<div class="flex flex-col items-center justify-center text-center min-h-[70vh]">
-  <p class="text-[11px] font-bold text-slate-500 uppercase tracking-[.25em] mb-2">Trường Đại học Sư phạm Kỹ thuật TP.HCM · Môn: Vạn Vật Kết Nối</p>
+  // ===== SLIDE 1: COVER =====
+  `<div class="flex flex-col items-center justify-center text-center min-h-[70vh]">
+  <p class="text-[11px] font-bold text-slate-500 uppercase tracking-[.25em] mb-2">Trường Đại học Công Nghệ Kỹ Thuật TP.HCM · Môn: Vạn Vật Kết Nối</p>
   <p class="text-xs text-slate-600 mb-12">HK1 2025-2026 · Nhóm 02</p>
   <h1 class="sl-title text-center" style="font-size:clamp(2.2rem,5vw,3.8rem)">Hệ Thống Giám Sát An Ninh<br>& Điểm Danh Thời Gian Thực<br><span class="grad">Bằng Nhận Diện Khuôn Mặt</span></h1>
   <p class="text-slate-400 text-sm mb-12">ESP32-S3-CAM · Python Flask · Face Recognition · IoT</p>
   <div class="flex gap-8 justify-center flex-wrap mb-8">
     <div class="flex flex-col items-center gap-1"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black">A</div><span class="text-sm font-semibold">Đinh Quốc Anh</span><span class="text-[10px] text-slate-500 font-mono">24133003</span></div>
-    <div class="flex flex-col items-center gap-1"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black">H</div><span class="text-sm font-semibold">Lý Gia Hân</span><span class="text-[10px] text-slate-500 font-mono">24131016</span></div>
+    <div class="flex flex-col items-center gap-1"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black">H</div><span class="text-sm font-semibold">Lý Gia Hân</span><span class="text-[10px] text-slate-500 font-mono">24133016</span></div>
     <div class="flex flex-col items-center gap-1"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black">T</div><span class="text-sm font-semibold">Đỗ Thanh Thành Tài</span><span class="text-[10px] text-slate-500 font-mono">24133050</span></div>
   </div>
   <div class="gc inline-flex px-6 py-2 text-sm">GVHD: <strong class="text-white ml-1">ThS. Đinh Công Đoan</strong></div>
 </div>`,
 
-// ===== SLIDE 2: MỤC LỤC =====
-`<div class="sl-head"><div class="line"></div><span>Overview</span></div>
+  // ===== SLIDE 2: MỤC LỤC =====
+  `<div class="sl-head"><div class="line"></div><span>Overview</span></div>
 <h2 class="sl-title">Nội Dung <span class="grad">Trình Bày</span></h2>
 <div class="sl-grid c3">
   <div class="gc"><span class="ic">📋</span><h4>Phần 1: Mở đầu</h4><p>Đặt vấn đề, tính cấp thiết, mục tiêu nghiên cứu</p></div>
@@ -27,8 +27,8 @@ const SLIDES = [
   <div class="gc"><span class="ic">🎯</span><h4>Phần 6: Kết luận</h4><p>Đánh giá, hướng phát triển</p></div>
 </div>`,
 
-// ===== SLIDE 3: ĐẶT VẤN ĐỀ =====
-`<div class="sl-head"><div class="line"></div><span>Mở đầu · Problem Statement</span></div>
+  // ===== SLIDE 3: ĐẶT VẤN ĐỀ =====
+  `<div class="sl-head"><div class="line"></div><span>Mở đầu · Problem Statement</span></div>
 <h2 class="sl-title">Đặt <span class="grad">Vấn Đề</span></h2>
 <p class="text-slate-400 text-sm mb-6">Thực trạng kiểm soát ra vào phòng thực hành tại các trường đại học</p>
 <div class="sl-grid c3">
@@ -40,8 +40,8 @@ const SLIDES = [
   <p>📊 Theo <strong>Verizon Data Breach Report (2023)</strong>: hơn <strong>80%</strong> các vụ xâm nhập trái phép liên quan đến thông tin xác thực bị đánh cắp hoặc bị đoán.</p>
 </div>`,
 
-// ===== SLIDE 4: TÍNH CẤP THIẾT =====
-`<div class="sl-head"><div class="line"></div><span>Background & Rationale</span></div>
+  // ===== SLIDE 4: TÍNH CẤP THIẾT =====
+  `<div class="sl-head"><div class="line"></div><span>Background & Rationale</span></div>
 <h2 class="sl-title">Tính Cấp Thiết & <span class="grad">Lý Do Chọn Đề Tài</span></h2>
 <div class="sl-grid c7-5">
   <div class="gc" style="border-left:4px solid rgba(0,210,255,.4)">
@@ -50,7 +50,7 @@ const SLIDES = [
       <div><p class="text-[#00d2ff] text-[10px] font-bold uppercase tracking-widest mb-1">Security First</p><p class="text-slate-400 text-sm border-l border-slate-800 pl-3">Không thể để quên, sao chép hay chuyển nhượng</p></div>
       <div><p class="text-[#00d2ff] text-[10px] font-bold uppercase tracking-widest mb-1">Post-COVID Norm</p><p class="text-slate-400 text-sm border-l border-slate-800 pl-3">Không tiếp xúc (contactless) - xu hướng toàn cầu</p></div>
       <div><p class="text-[#00d2ff] text-[10px] font-bold uppercase tracking-widest mb-1">Smart Tracking</p><p class="text-slate-400 text-sm border-l border-slate-800 pl-3">Xác thực chính xác, ghi log tự động 24/7</p></div>
-      <div><p class="text-[#00d2ff] text-[10px] font-bold uppercase tracking-widest mb-1">Economic Value</p><p class="text-slate-400 text-sm border-l border-slate-800 pl-3">ESP32-S3-CAM <span class="text-white font-bold">chưa đến 200.000 VNĐ</span></p></div>
+      <div><p class="text-[#00d2ff] text-[10px] font-bold uppercase tracking-widest mb-1">Economic Value</p><p class="text-slate-400 text-sm border-l border-slate-800 pl-3">ESP32-S3-CAM <span class="text-white font-bold">chưa đến 300.000 VNĐ</span></p></div>
     </div>
   </div>
   <div class="gc">
@@ -67,8 +67,8 @@ const SLIDES = [
   <span class="text-lg font-bold text-white italic">"Chứng minh tính khả thi của kiến trúc <span class="text-[#00d2ff] glow-text">thiết bị nhúng rẻ + server AI</span> trong bài toán bảo mật thực tiễn"</span></p>
 </div>`,
 
-// ===== SLIDE 5: MỤC TIÊU =====
-`<div class="sl-head"><div class="line"></div><span>Objectives</span></div>
+  // ===== SLIDE 5: MỤC TIÊU =====
+  `<div class="sl-head"><div class="line"></div><span>Objectives</span></div>
 <h2 class="sl-title">Mục Tiêu <span class="grad">Đề Tài</span></h2>
 <div class="sl-grid c3" style="margin-bottom:20px">
   <div class="gc text-center stat-hover"><p class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#00d2ff] to-[#0061ff]">≥90%</p><p class="text-xs text-slate-500 mt-1">Độ chính xác nhận diện</p></div>
@@ -83,8 +83,8 @@ const SLIDES = [
   <li><span class="text-[#00d2ff]">📺</span> Hiển thị tên/từ chối trên LCD 1602 I2C + ghi log CSV</li>
 </ul>`,
 
-// ===== SLIDE 6: KIẾN TRÚC HỆ THỐNG =====
-`<div class="sl-head"><div class="line"></div><span>System Architecture</span></div>
+  // ===== SLIDE 6: KIẾN TRÚC HỆ THỐNG =====
+  `<div class="sl-head"><div class="line"></div><span>System Architecture</span></div>
 <h2 class="sl-title">Kiến Trúc <span class="grad">Tổng Thể Hệ Thống</span></h2>
 <p class="text-slate-400 text-sm mb-6">Mô hình Client-Server hai tầng trong mạng LAN nội bộ</p>
 <div class="flex flex-col gap-4 items-center">
@@ -105,8 +105,8 @@ const SLIDES = [
   </div>
 </div>`,
 
-// ===== SLIDE 7: THÀNH PHẦN =====
-`<div class="sl-head"><div class="line"></div><span>System Components</span></div>
+  // ===== SLIDE 7: THÀNH PHẦN =====
+  `<div class="sl-head"><div class="line"></div><span>System Components</span></div>
 <h2 class="sl-title">6 Khối <span class="grad">Chức Năng Chính</span></h2>
 <div class="sl-grid c3">
   <div class="gc stat-hover"><span class="ic">🧠</span><h4>Khối Xử lý Trung tâm</h4><p>ESP32-S3-CAM N16R8 — "bộ não" phần cứng, điều phối camera, relay, LCD</p></div>
@@ -117,14 +117,14 @@ const SLIDES = [
   <div class="gc stat-hover"><span class="ic">📺</span><h4>Khối Hiển thị</h4><p>LCD 1602 I2C (PCF8574), 2 dây SDA/SCL, phản hồi tức thì</p></div>
 </div>`,
 
-// ===== SLIDE 8: YÊU CẦU =====
-`<div class="sl-head"><div class="line"></div><span>Requirements</span></div>
+  // ===== SLIDE 8: YÊU CẦU =====
+  `<div class="sl-head"><div class="line"></div><span>Requirements</span></div>
 <h2 class="sl-title">Yêu Cầu <span class="grad">Hệ Thống</span></h2>
 <div class="sl-grid c2">
   <div>
     <h4 class="text-white font-bold mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-[#00d2ff]">checklist</span> Yêu cầu chức năng</h4>
     <table><thead><tr><th>Yêu cầu</th><th>Mô tả</th></tr></thead><tbody>
-      <tr><td>📸 Thu thập ảnh</td><td>Chụp khuôn mặt qua OV3660 khi nhấn nút</td></tr>
+      <tr><td>📸 Thu thập ảnh</td><td>Chụp khuôn mặt qua OV3660 </td></tr>
       <tr><td>🧠 Nhận diện</td><td>Server xác định danh tính, trả JSON</td></tr>
       <tr><td>🔓 Kiểm soát khóa</td><td>Tự động mở JF-0826B 3s khi thành công</td></tr>
       <tr><td>📺 Hiển thị</td><td>LCD hiển thị tên/từ chối</td></tr>
@@ -144,8 +144,8 @@ const SLIDES = [
   </div>
 </div>`,
 
-// ===== SLIDE 9: LỰA CHỌN CÔNG NGHỆ =====
-`<div class="sl-head"><div class="line"></div><span>Technology Selection</span></div>
+  // ===== SLIDE 9: LỰA CHỌN CÔNG NGHỆ =====
+  `<div class="sl-head"><div class="line"></div><span>Technology Selection</span></div>
 <h2 class="sl-title">Lựa Chọn <span class="grad">Công Nghệ</span></h2>
 <div class="sl-grid c2">
   <div>
@@ -153,7 +153,7 @@ const SLIDES = [
     <table><thead><tr><th>Tiêu chí</th><th>RPi 4</th><th>ESP32-CAM</th><th>ESP32-S3 ✅</th></tr></thead><tbody>
       <tr><td>PSRAM</td><td>4GB</td><td>4MB</td><td class="text-[#00d2ff] font-bold">8MB</td></tr>
       <tr><td>Flash</td><td>SD</td><td>4MB</td><td class="text-[#00d2ff] font-bold">16MB</td></tr>
-      <tr><td>Chi phí</td><td class="text-red-400">~1.5tr</td><td>~80K</td><td class="text-green-400 font-bold">~200K</td></tr>
+      <tr><td>Chi phí</td><td class="text-red-400">~1.5tr</td><td>~80K</td><td class="text-green-400 font-bold">~300K</td></tr>
       <tr><td>Tiêu thụ</td><td>~3W</td><td>~0.5W</td><td class="font-bold">~0.5W</td></tr>
     </tbody></table>
   </div>
@@ -168,50 +168,53 @@ const SLIDES = [
 </div>
 <div class="callout"><p>🏆 <strong>Kiến trúc Client-Server</strong> được chọn: độ chính xác ~93% (vs 85% on-device), mở rộng không giới hạn người dùng, dễ nâng cấp thuật toán</p></div>`,
 
-// ===== SLIDE 10: LINH KIỆN (IMAGE PLACEHOLDERS) =====
-`<div class="sl-head"><div class="line"></div><span>Hardware Components</span></div>
+  // ===== SLIDE 10: LINH KIỆN PHẦN CỨNG =====
+  `<div class="sl-head"><div class="line"></div><span>Hardware Components</span></div>
 <h2 class="sl-title">Linh Kiện <span class="grad">Phần Cứng</span></h2>
 <div class="sl-grid c3">
   <div class="gc stat-hover">
     <h4>📸 ESP32-S3-CAM N16R8</h4>
-    <div class="img-placeholder my-3" style="min-height:150px"><span class="material-symbols-outlined text-3xl">add_photo_alternate</span><span class="text-xs">Thêm hình ESP32-S3-CAM</span></div>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:150px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/esp32-s3-cam.png" alt="ESP32-S3-CAM N16R8" style="max-height:150px;max-width:100%;object-fit:contain;border-radius:8px"></div>
     <p>Xtensa LX7 240MHz, 8MB PSRAM, 16MB Flash, Wi-Fi, Camera DVP</p>
   </div>
   <div class="gc stat-hover">
-    <h4>⚡ Module Relay 12V</h4>
-    <div class="img-placeholder my-3" style="min-height:150px"><span class="material-symbols-outlined text-3xl">add_photo_alternate</span><span class="text-xs">Thêm hình Module Relay</span></div>
-    <p>250VAC/10A, optocoupler PC817 cách ly, kích tự giữ</p>
+    <h4>⚡ Module Relay 5VDC</h4>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:150px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/relay-module.png" alt="Module Relay 5VDC" style="max-height:150px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <p>5VDC, 10A/250VAC, optocoupler PC817 cách ly</p>
   </div>
   <div class="gc stat-hover">
     <h4>📺 LCD 1602 I2C</h4>
-    <div class="img-placeholder my-3" style="min-height:150px"><span class="material-symbols-outlined text-3xl">add_photo_alternate</span><span class="text-xs">Thêm hình LCD 1602</span></div>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:150px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/lcd-1602.png" alt="LCD 1602" style="max-height:150px;max-width:100%;object-fit:contain;border-radius:8px"></div>
     <p>16×2 ký tự, chip PCF8574, I2C 100kHz, chỉ 2 dây SDA+SCL</p>
   </div>
   <div class="gc stat-hover">
-    <h4>🔓 Khóa JF-0826B 12V</h4>
-    <div class="img-placeholder my-3" style="min-height:150px"><span class="material-symbols-outlined text-3xl">add_photo_alternate</span><span class="text-xs">Thêm hình Khóa chốt</span></div>
-    <p>Solenoid Fail-Secure, 2A, mở 50-80ms, tự khóa khi mất điện</p>
+    <h4>🔓 Khóa Chốt Điện Từ JF-0826B</h4>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:150px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/khoa-dien-tu.png" alt="Khóa chốt điện từ JF-0826B" style="max-height:150px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <p>Solenoid 12VDC/2A, Fail-Secure, hành trình 10mm, lực hút 20N</p>
   </div>
   <div class="gc stat-hover">
     <h4>🔌 Adapter 12V-2A</h4>
-    <div class="img-placeholder my-3" style="min-height:150px"><span class="material-symbols-outlined text-3xl">add_photo_alternate</span><span class="text-xs">Thêm hình Adapter</span></div>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:150px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/adapter-12v.png" alt="Adapter 12V-2A" style="max-height:150px;max-width:100%;object-fit:contain;border-radius:8px"></div>
     <p>24W output, biên dự phòng 2.5× so với thực tế ~9W</p>
   </div>
   <div class="gc stat-hover">
     <h4>🔔 Buzzer Active 5V</h4>
-    <div class="img-placeholder my-3" style="min-height:150px"><span class="material-symbols-outlined text-3xl">add_photo_alternate</span><span class="text-xs">Thêm hình Buzzer</span></div>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:150px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/buzzer.png" alt="Buzzer Active 5V" style="max-height:150px;max-width:100%;object-fit:contain;border-radius:8px"></div>
     <p>3 pattern: 1 beep thành công, 2 beep từ chối, 3 beep lỗi</p>
   </div>
 </div>`,
 
-// ===== SLIDE 11: SƠ ĐỒ + MÔ HÌNH =====
-`<div class="sl-head"><div class="line"></div><span>Hardware Wiring & Assembly</span></div>
+  // ===== SLIDE 11: SƠ ĐỒ + MÔ HÌNH =====
+  `<div class="sl-head"><div class="line"></div><span>Hardware Wiring & Assembly</span></div>
 <h2 class="sl-title">Sơ Đồ Kết Nối & <span class="grad">Mô Hình Thực Tế</span></h2>
-<div class="sl-grid c2">
+<div class="sl-grid c2" style="gap:12px">
   <div>
-    <h4 class="text-white font-bold mb-3">Sơ đồ mạch nguyên lý</h4>
-    <div class="img-placeholder" style="min-height:280px"><span class="material-symbols-outlined text-4xl">add_photo_alternate</span><span class="text-sm">Thêm hình sơ đồ mạch nguyên lý</span></div>
-    <table class="mt-4"><thead><tr><th>GPIO</th><th>Kết nối</th><th>Chức năng</th></tr></thead><tbody>
+    <h4 class="text-white font-bold mb-2" style="font-size:.95rem">Sơ đồ mạch nguyên lý</h4>
+    <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;justify-content:center;align-items:center;height:140px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/so-do-ket-noi.png" alt="Sơ đồ kết nối phần cứng" style="max-height:140px;max-width:100%;object-fit:contain"></div>
+    <div style="display:flex;justify-content:center;align-items:center;height:140px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/so-do-nguyen-ly.png" alt="Sơ đồ mạch nguyên lý" style="max-height:140px;max-width:100%;object-fit:contain"></div>
+    </div>
+    <table class="mt-2" style="font-size:.85rem"><thead><tr><th>GPIO</th><th>Kết nối</th><th>Chức năng</th></tr></thead><tbody>
       <tr><td>GPIO 0</td><td>Nút nhấn</td><td>Kích hoạt</td></tr>
       <tr><td>GPIO 1</td><td>LCD SDA</td><td>I2C Data</td></tr>
       <tr><td>GPIO 2</td><td>LCD SCL</td><td>I2C Clock</td></tr>
@@ -220,15 +223,17 @@ const SLIDES = [
     </tbody></table>
   </div>
   <div>
-    <h4 class="text-white font-bold mb-3">Mô hình lắp ráp thực tế</h4>
-    <div class="img-placeholder mb-4" style="min-height:200px"><span class="material-symbols-outlined text-4xl">add_photo_alternate</span><span class="text-sm">Thêm hình mặt trước mô hình</span></div>
-    <div class="img-placeholder" style="min-height:200px"><span class="material-symbols-outlined text-4xl">add_photo_alternate</span><span class="text-sm">Thêm hình mặt sau mô hình</span></div>
-    <div class="callout mt-4"><p>⚡ <strong>Bảo vệ mạch:</strong> Diode 1N4007 triệt Back-EMF · Buck Converter 12V→5V hiệu suất >90%</p></div>
+    <h4 class="text-white font-bold mb-2" style="font-size:.95rem">Mô hình lắp ráp thực tế</h4>
+    <div style="display:flex;justify-content:center;align-items:center;height:140px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden;margin-bottom:6px"><img src="images/mo-hinh-truoc.png" alt="Mặt trước mô hình" style="max-height:140px;max-width:100%;object-fit:contain"></div>
+    <p class="text-[10px] text-slate-500 text-center mb-2">Mặt trước: ESP32-CAM, LCD 1602, nút nhấn, buzzer</p>
+    <div style="display:flex;justify-content:center;align-items:center;height:140px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden;margin-bottom:6px"><img src="images/mo-hinh-sau.png" alt="Mặt sau mô hình" style="max-height:140px;max-width:100%;object-fit:contain"></div>
+    <p class="text-[10px] text-slate-500 text-center mb-2">Mặt sau: LCD I2C, relay module, khóa JF-0826B, dây nối</p>
+    <div class="callout mt-2" style="padding:10px 14px;margin-top:8px"><p style="font-size:.85rem">⚡ <strong>Bảo vệ mạch:</strong> Diode 1N4007 triệt Back-EMF · Buck Converter 12V→5V hiệu suất >90%</p></div>
   </div>
 </div>`,
 
-// ===== SLIDE 12: NGUYÊN LÝ HOẠT ĐỘNG =====
-`<div class="sl-head"><div class="line"></div><span>Operating Principle</span></div>
+  // ===== SLIDE 12: NGUYÊN LÝ HOẠT ĐỘNG =====
+  `<div class="sl-head"><div class="line"></div><span>Operating Principle</span></div>
 <h2 class="sl-title">Nguyên Lý <span class="grad">Hoạt Động</span></h2>
 <div class="sl-grid c2">
   <div class="gc" style="border-left:4px solid rgba(34,197,94,.4)">
@@ -238,7 +243,7 @@ const SLIDES = [
       <li><span>2️⃣</span> HTTP POST → Server xử lý AI</li>
       <li><span>3️⃣</span> JSON → Tên người dùng (score ≥ 0.80)</li>
       <li><span>4️⃣</span> GPIO HIGH → Relay → Khóa mở 3s</li>
-      <li><span>5️⃣</span> LCD: "CHAO MUNG! / [Tên]"</li>
+      <li><span>5️⃣</span> LCD: "[Tên] / [MSSV] "</li>
       <li><span>6️⃣</span> Buzzer 1 beep · Log SUCCESS</li>
     </ul>
   </div>
@@ -255,34 +260,34 @@ const SLIDES = [
   </div>
 </div>`,
 
-// ===== SLIDE 13: GIAO DIỆN WEB =====
-`<div class="sl-head"><div class="line"></div><span>Web Interface</span></div>
+  // ===== SLIDE 13: GIAO DIỆN WEB =====
+  `<div class="sl-head"><div class="line"></div><span>Web Interface</span></div>
 <h2 class="sl-title">Giao Diện <span class="grad">Web Dashboard</span></h2>
-<div class="sl-grid c2">
-  <div class="gc stat-hover">
-    <h4>📊 Dashboard — Điểm danh</h4>
-    <div class="img-placeholder my-3" style="min-height:220px"><span class="material-symbols-outlined text-4xl">add_photo_alternate</span><span class="text-sm">Thêm hình giao diện Dashboard</span></div>
-    <p>Camera MJPEG 20FPS, nhật ký real-time, nút khóa/mở phòng</p>
+<div class="sl-grid c2" style="gap:10px">
+  <div class="gc stat-hover" style="padding:14px">
+    <h4 style="font-size:.95rem">📊 Dashboard — Điểm danh</h4>
+    <div class="my-2" style="display:flex;justify-content:center;align-items:center;height:150px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/dashboard-diemdanh.png" alt="Dashboard điểm danh" style="max-height:150px;max-width:100%;object-fit:contain"></div>
+    <p style="font-size:.85rem">Camera MJPEG 20FPS, nhật ký real-time, nút khóa/mở phòng</p>
   </div>
-  <div class="gc stat-hover">
-    <h4>📋 Lịch sử điểm danh</h4>
-    <div class="img-placeholder my-3" style="min-height:220px"><span class="material-symbols-outlined text-4xl">add_photo_alternate</span><span class="text-sm">Thêm hình giao diện lịch sử</span></div>
-    <p>Thống kê tổng hợp, lọc theo thời gian, xuất CSV</p>
+  <div class="gc stat-hover" style="padding:14px">
+    <h4 style="font-size:.95rem">📋 Lịch sử điểm danh</h4>
+    <div class="my-2" style="display:flex;justify-content:center;align-items:center;height:150px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/lichsu-diemdanh.png" alt="Lịch sử điểm danh" style="max-height:150px;max-width:100%;object-fit:contain"></div>
+    <p style="font-size:.85rem">Thống kê tổng hợp, lọc theo thời gian, xuất CSV</p>
   </div>
-  <div class="gc stat-hover">
-    <h4>🚨 Cảnh báo an ninh</h4>
-    <div class="img-placeholder my-3" style="min-height:220px"><span class="material-symbols-outlined text-4xl">add_photo_alternate</span><span class="text-sm">Thêm hình cảnh báo an ninh</span></div>
-    <p>Banner real-time khi phát hiện người lạ, gửi Telegram</p>
+  <div class="gc stat-hover" style="padding:14px">
+    <h4 style="font-size:.95rem">🚨 Cảnh báo an ninh</h4>
+    <div class="my-2" style="display:flex;justify-content:center;align-items:center;height:150px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/canh-bao-anninh.png" alt="Cảnh báo an ninh Telegram" style="max-height:150px;max-width:100%;object-fit:contain"></div>
+    <p style="font-size:.85rem">Banner real-time khi phát hiện người lạ, gửi Telegram</p>
   </div>
-  <div class="gc stat-hover">
-    <h4>👥 Thêm người dùng mới</h4>
-    <div class="img-placeholder my-3" style="min-height:220px"><span class="material-symbols-outlined text-4xl">add_photo_alternate</span><span class="text-sm">Thêm hình đăng ký người dùng</span></div>
-    <p>Tạo tài khoản, Enroll khuôn mặt, trích xuất vector tự động</p>
+  <div class="gc stat-hover" style="padding:14px">
+    <h4 style="font-size:.95rem">👥 Thêm người dùng mới</h4>
+    <div class="my-2" style="display:flex;justify-content:center;align-items:center;height:150px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/them-nguoidung.png" alt="Thêm người dùng mới" style="max-height:150px;max-width:100%;object-fit:contain"></div>
+    <p style="font-size:.85rem">Tạo tài khoản, Enroll khuôn mặt, trích xuất vector tự động</p>
   </div>
 </div>`,
 
-// ===== SLIDE 14: AN NINH =====
-`<div class="sl-head"><div class="line"></div><span>Security Mechanism</span></div>
+  // ===== SLIDE 14: AN NINH =====
+  `<div class="sl-head"><div class="line"></div><span>Security Mechanism</span></div>
 <h2 class="sl-title">Cơ Chế <span class="grad">An Ninh Thông Minh</span></h2>
 <div class="sl-grid c2">
   <div class="gc stat-hover"><h4 class="flex items-center gap-2"><span class="material-symbols-outlined text-[#00d2ff]">timer</span> Debounce 30s</h4><p>Bỏ qua yêu cầu trùng lặp từ cùng người trong 30 giây — tránh ghi điểm danh trùng</p></div>
@@ -291,8 +296,8 @@ const SLIDES = [
   <div class="gc stat-hover"><h4 class="flex items-center gap-2"><span class="material-symbols-outlined text-purple-400">dark_mode</span> Night Mode Auto-lock</h4><p>Tự động khóa phòng ban đêm theo lịch trình, hỗ trợ khóa thủ công từ xa</p></div>
 </div>`,
 
-// ===== SLIDE 15: KẾT QUẢ THỰC NGHIỆM =====
-`<div class="sl-head"><div class="line"></div><span>Experimental Results</span></div>
+  // ===== SLIDE 15: KẾT QUẢ THỰC NGHIỆM =====
+  `<div class="sl-head"><div class="line"></div><span>Experimental Results</span></div>
 <h2 class="sl-title">Kết Quả <span class="grad">Thực Nghiệm</span></h2>
 <table><thead><tr><th>Kịch bản</th><th>Kết quả</th><th>Thời gian</th></tr></thead><tbody>
   <tr><td>✅ Nhận diện hợp lệ</td><td>LCD tên, Buzzer 1 beep, Relay mở 3s</td><td>~2 giây</td></tr>
@@ -308,8 +313,8 @@ const SLIDES = [
   <div class="gc text-center stat-hover"><p class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#00d2ff] to-[#0061ff]">8h+</p><p class="text-xs text-slate-500">Hoạt động liên tục</p></div>
 </div>`,
 
-// ===== SLIDE 16: KHÓ KHĂN =====
-`<div class="sl-head"><div class="line"></div><span>Challenges & Solutions</span></div>
+  // ===== SLIDE 16: KHÓ KHĂN =====
+  `<div class="sl-head"><div class="line"></div><span>Challenges & Solutions</span></div>
 <h2 class="sl-title">Khó Khăn & <span class="grad">Giải Pháp</span></h2>
 <div class="sl-grid c2">
   <div class="gc stat-hover"><h4>⚡ Sụt áp & Back-EMF</h4><p>Dòng khởi động 500mA gây reset ESP32</p><div class="callout mt-3"><p>✅ <strong>Giải pháp:</strong> Tách nguồn 12V/5V + Diode 1N4007 triệt Back-EMF</p></div></div>
@@ -318,8 +323,8 @@ const SLIDES = [
   <div class="gc stat-hover"><h4>🔆 Sai số môi trường</h4><p>Ánh sáng/góc thay đổi giảm chính xác</p><div class="callout mt-3"><p>✅ <strong>Giải pháp:</strong> Hybrid Metric (70% Cosine + 30% L2) + Mean Embedding 15-20 ảnh</p></div></div>
 </div>`,
 
-// ===== SLIDE 17: KẾT QUẢ ĐẠT ĐƯỢC =====
-`<div class="sl-head"><div class="line"></div><span>Achievements</span></div>
+  // ===== SLIDE 17: KẾT QUẢ ĐẠT ĐƯỢC =====
+  `<div class="sl-head"><div class="line"></div><span>Achievements</span></div>
 <h2 class="sl-title">Kết Quả <span class="grad">Đạt Được</span></h2>
 <ul class="list-feat">
   <li><div class="icon-box bg-cyan-500/10 border border-cyan-500/20 mr-1"><span class="material-symbols-outlined text-[#00d2ff]">hub</span></div> <div><strong class="text-white">Hệ sinh thái AIoT tích hợp:</strong> Hội tụ Computer Vision + IoT, tự động hóa hoàn chỉnh từ biên đến server</div></li>
@@ -329,8 +334,8 @@ const SLIDES = [
   <li><div class="icon-box bg-red-500/10 border border-red-500/20 mr-1"><span class="material-symbols-outlined text-red-400">shield</span></div> <div><strong class="text-white">An ninh thông minh:</strong> Day/Night auto-lock, leo thang cảnh báo, Telegram Bot API</div></li>
 </ul>`,
 
-// ===== SLIDE 18: ƯU NHƯỢC ĐIỂM =====
-`<div class="sl-head"><div class="line"></div><span>Evaluation</span></div>
+  // ===== SLIDE 18: ƯU NHƯỢC ĐIỂM =====
+  `<div class="sl-head"><div class="line"></div><span>Evaluation</span></div>
 <h2 class="sl-title">Ưu Điểm & <span class="grad">Nhược Điểm</span></h2>
 <div class="sl-grid c2">
   <div class="gc" style="border-left:4px solid rgba(34,197,94,.4)">
@@ -355,8 +360,8 @@ const SLIDES = [
   </div>
 </div>`,
 
-// ===== SLIDE 19: HƯỚNG PHÁT TRIỂN =====
-`<div class="sl-head"><div class="line"></div><span>Future Work</span></div>
+  // ===== SLIDE 19: HƯỚNG PHÁT TRIỂN =====
+  `<div class="sl-head"><div class="line"></div><span>Future Work</span></div>
 <h2 class="sl-title">Hướng <span class="grad">Phát Triển</span></h2>
 <div class="sl-grid c2">
   <div class="gc stat-hover"><h4 class="flex items-center gap-2"><span class="material-symbols-outlined text-[#00d2ff]">camera_enhance</span> Nâng cấp camera</h4><p>Camera độ phân giải cao + cảm biến hồng ngoại (IR) cho nhận diện ban đêm</p></div>
@@ -366,8 +371,8 @@ const SLIDES = [
 </div>
 <div class="callout"><p>🔐 <strong>MFA (Multi-Factor Authentication):</strong> Tích hợp RFID hoặc vân tay tại biên (Edge), đảm bảo vận hành khi mất kết nối Server</p></div>`,
 
-// ===== SLIDE 20: CẢM ƠN =====
-`<div class="flex flex-col items-center justify-center text-center min-h-[60vh]">
+  // ===== SLIDE 20: CẢM ƠN =====
+  `<div class="flex flex-col items-center justify-center text-center min-h-[60vh]">
   <p class="text-6xl mb-6" style="animation:float 3s ease-in-out infinite">🎓</p>
   <h1 class="sl-title text-center" style="font-size:clamp(2rem,5vw,3.5rem)"><span class="grad">Cảm Ơn Thầy Và Các Bạn</span><br>Đã Lắng Nghe!</h1>
   <p class="text-slate-400 text-sm mb-10">Hệ thống giám sát an ninh & điểm danh thời gian thực bằng nhận diện khuôn mặt</p>
@@ -383,7 +388,7 @@ const SLIDES = [
 ];
 
 // ===== INJECT SLIDES INTO DOM =====
-(function() {
+(function () {
   const container = document.getElementById('slidesContainer');
   if (!container) return;
   SLIDES.forEach((html, i) => {

@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Runtime data (auto-generated)
+*.pkl
+attendance_logs/
+dataset/
+*.db
+
+# Secrets (chứa Telegram bot token)
+security_config.json
+
+# AI Models (auto-download)
+*.pt
+*.task
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store

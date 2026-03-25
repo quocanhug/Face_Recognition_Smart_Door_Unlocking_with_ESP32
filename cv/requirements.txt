@@ -1,0 +1,9 @@
+facenet-pytorch
+opencv-python
+torch
+torchvision
+numpy
+requests
+Pillow
+ultralytics
+mediapipe

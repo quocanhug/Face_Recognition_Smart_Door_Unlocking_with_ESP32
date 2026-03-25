@@ -1,0 +1,13 @@
+Arduino Board Manager:
+- ESP32 by Espressif Systems (v3.x or later)
+
+Arduino Libraries (install via Library Manager):
+- LiquidCrystal_I2C (by Frank de Brabander)
+- ArduinoJson (by Benoit Blanchon, v7.x or later)
+
+Hardware Requirements:
+- ESP32-S3 Board (with PSRAM recommended)
+- OV3660 Camera Module
+- LCD1602 with I2C module (Address 0x27 or 0x3F)
+- 5V Relay Module
+- Active Buzzer

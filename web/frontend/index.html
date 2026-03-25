@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Attendance Dashboard</title>
+    <meta name="description" content="Smart Attendance System - Hệ thống điểm danh thông minh bằng nhận diện khuôn mặt">
+    <link rel="stylesheet" href="/static/css/style.css?v=5">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="header-brand">
+        <div class="logo">🎓</div>
+        <div>
+            <h1>Smart Attendance</h1>
+        </div>
+        <span class="version">v2.0 Web</span>
+    </div>
+    <div class="header-status">
+        <!-- Clock -->
+        <div class="status-badge clock-badge">
+            <span>🕐</span>
+            <span id="liveClock">--:--:--</span>
+            <span class="clock-date" id="liveDate">--/--/----</span>
+        </div>
+        <div class="status-badge">
+            <div class="ws-indicator" id="wsIndicator"></div>
+            <span>WebSocket</span>
+        </div>
+        <div class="status-badge">
+            <div class="status-dot online" id="esp32Dot"></div>
+            <span id="esp32Status">ESP32: Checking...</span>
+        </div>
+        <div class="status-badge">
+            <div class="status-dot online" id="modeDot"></div>
+            <span id="modeStatus">☀️ Day</span>
+        </div>
+        <div class="status-badge lock-toggle" id="lockToggle" onclick="toggleRoomLock()">
+            <span id="lockIcon">🔓</span>
+            <span id="lockStatus">Mở khóa</span>
+        </div>
+    </div>
+</header>
+
+<!-- ===== NAV TABS ===== -->
+<nav class="nav-tabs">
+    <button class="nav-tab active" onclick="switchPage('dashboard')" id="tabDashboard">📊 Dashboard</button>
+    <button class="nav-tab" onclick="switchPage('history')" id="tabHistory">📜 Lịch Sử Điểm Danh</button>
+</nav>
+
+<!-- ===== PAGE: DASHBOARD ===== -->
+<main class="main-container page-content" id="pageDashboard">
+
+    <!-- LEFT: Camera Only -->
+    <div class="camera-section">
+        <div class="card">
+            <div class="card-header">
+                <h2>📹 Live Camera</h2>
+                <button class="btn btn-sm btn-ghost" onclick="document.getElementById('cameraFeed').src='/api/stream?' + Date.now()">🔄 Refresh</button>
+            </div>
+            <div class="card-body" style="padding:0">
+                <div class="camera-feed">
+                    <img id="cameraFeed" src="/api/stream" alt="Camera Feed"
+                         onerror="this.style.display='none'; document.getElementById('cameraOffline').style.display='flex'"
+                    >
+                    <div id="cameraOffline" style="display:none; position:absolute; inset:0; align-items:center; justify-content:center; flex-direction:column; gap:8px; color:var(--text-muted)">
+                        <span style="font-size:40px">📷</span>
+                        <span>Camera Offline</span>
+                    </div>
+                    <div class="camera-overlay">
+                        <span class="camera-badge live">● LIVE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT: Sidebar (Stats + Alerts + Log + Users) -->
+    <div class="sidebar">
+
+        <!-- Stats (compact row) -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-value" id="statUsers">-</div>
+                <div class="stat-label">Users</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-value" id="statToday">-</div>
+                <div class="stat-label">Hôm nay</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statMode">-</div>
+                <div class="stat-label">Security</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statUptime">-</div>
+                <div class="stat-label">Uptime</div>
+            </div>
+        </div>
+
+        <!-- Security Alert -->
+        <div class="security-alert" id="securityAlert"></div>
+
+        <!-- Room Lock Banner -->
+        <div class="room-lock-banner" id="roomLockBanner" style="display:none">
+            <div style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:16px">🔒</span>
+                <div>
+                    <div style="font-weight:600;font-size:12px">PHÒNG ĐANG KHÓA</div>
+                    <div style="font-size:10px;opacity:0.8">Quay lại hôm sau</div>
+                </div>
+            </div>
+            <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;font-size:10px;padding:3px 8px" onclick="toggleRoomLock()">Mở khóa</button>
+        </div>
+
+        <!-- Attendance Log -->
+        <div class="card">
+            <div class="card-header">
+                <h2>📋 Điểm Danh Hôm Nay</h2>
+                <button class="btn btn-sm btn-ghost" onclick="fetchTodayLogs()">🔄</button>
+            </div>
+            <div class="card-body">
+                <div class="log-list" id="logList">
+                    <div class="log-empty">📋 Đang tải...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Management -->
+        <div class="card">
+            <div class="card-header">
+                <h2>👤 Quản Lý Users</h2>
+                <button class="btn btn-sm btn-primary" onclick="showAddUser()">+ Thêm</button>
+            </div>
+            <div class="card-body">
+                <div class="user-list" id="userList">
+                    <div class="log-empty">Đang tải...</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- ===== PAGE: HISTORY ===== -->
+<main class="history-container page-content" id="pageHistory" style="display:none">
+    <div class="card" style="max-width:1000px; margin:0 auto">
+        <div class="card-header">
+            <h2>📜 Lịch Sử Điểm Danh</h2>
+            <div class="history-controls">
+                <select class="form-input" id="historyDays" onchange="fetchHistory()" style="width:auto">
+                    <option value="1">Hôm nay</option>
+                    <option value="3">3 ngày</option>
+                    <option value="7" selected>7 ngày</option>
+                    <option value="14">14 ngày</option>
+                    <option value="30">30 ngày</option>
+                </select>
+                <button class="btn btn-sm btn-ghost" onclick="fetchHistory()">🔄 Refresh</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="history-summary" id="historySummary"></div>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Thời gian</th>
+                        <th>Họ tên</th>
+                        <th>MSSV</th>
+                        <th>Trạng thái</th>
+                        <th>Confidence</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody">
+                    <tr><td colspan="6" class="log-empty">Chọn khoảng thời gian để xem</td></tr>
+                </tbody>
+            </table>
+            <div class="history-footer" id="historyFooter"></div>
+        </div>
+    </div>
+</main>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===== ADD USER MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <h3 id="modalTitle">➕ Thêm Người Dùng</h3>
+        <div class="form-group">
+            <label>Họ và tên</label>
+            <input type="text" class="form-input" id="inputName" placeholder="Nguyễn Văn A">
+        </div>
+        <div class="form-group">
+            <label>MSSV</label>
+            <input type="text" class="form-input" id="inputMssv" placeholder="21110xxx"
+                   onkeydown="if(event.key==='Enter') submitAddUser()">
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" onclick="hideModal()">Hủy</button>
+            <button class="btn btn-primary" id="modalSubmitBtn" onclick="submitAddUser()">Thêm</button>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/app.js?v=3"></script>
+</body>
+</html>

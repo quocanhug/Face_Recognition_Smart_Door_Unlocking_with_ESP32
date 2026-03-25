@@ -211,8 +211,7 @@ const SLIDES = [
   <div>
     <h4 class="text-white font-bold mb-2" style="font-size:.95rem">Sơ đồ mạch nguyên lý</h4>
     <div style="display:flex;flex-direction:column;gap:8px">
-    <div style="display:flex;justify-content:center;align-items:center;height:140px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/so-do-ket-noi.png" alt="Sơ đồ kết nối phần cứng" style="max-height:140px;max-width:100%;object-fit:contain"></div>
-    <div style="display:flex;justify-content:center;align-items:center;height:140px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/so-do-nguyen-ly.png" alt="Sơ đồ mạch nguyên lý" style="max-height:140px;max-width:100%;object-fit:contain"></div>
+    <div style="display:flex;justify-content:center;align-items:center;height:300px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/so-do-ket-noi.png" alt="Sơ đồ kết nối phần cứng" style="max-height:300px;max-width:120%;object-fit:contain"></div>
     </div>
     <table class="mt-2" style="font-size:.85rem"><thead><tr><th>GPIO</th><th>Kết nối</th><th>Chức năng</th></tr></thead><tbody>
       <tr><td>GPIO 0</td><td>Nút nhấn</td><td>Kích hoạt</td></tr>
@@ -224,9 +223,9 @@ const SLIDES = [
   </div>
   <div>
     <h4 class="text-white font-bold mb-2" style="font-size:.95rem">Mô hình lắp ráp thực tế</h4>
-    <div style="display:flex;justify-content:center;align-items:center;height:140px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden;margin-bottom:6px"><img src="images/mo-hinh-truoc.png" alt="Mặt trước mô hình" style="max-height:140px;max-width:100%;object-fit:contain"></div>
+    <div style="display:flex;justify-content:center;align-items:center;height:200px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden;margin-bottom:6px"><img src="images/mo-hinh-truoc.png" alt="Mặt trước mô hình" style="max-height:200px;max-width:100%;object-fit:contain"></div>
     <p class="text-[10px] text-slate-500 text-center mb-2">Mặt trước: ESP32-CAM, LCD 1602, nút nhấn, buzzer</p>
-    <div style="display:flex;justify-content:center;align-items:center;height:140px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden;margin-bottom:6px"><img src="images/mo-hinh-sau.png" alt="Mặt sau mô hình" style="max-height:140px;max-width:100%;object-fit:contain"></div>
+    <div style="display:flex;justify-content:center;align-items:center;height:200px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden;margin-bottom:6px"><img src="images/mo-hinh-sau.png" alt="Mặt sau mô hình" style="max-height: 200px;max-width:100%;object-fit:contain"></div>
     <p class="text-[10px] text-slate-500 text-center mb-2">Mặt sau: LCD I2C, relay module, khóa JF-0826B, dây nối</p>
     <div class="callout mt-2" style="padding:10px 14px;margin-top:8px"><p style="font-size:.85rem">⚡ <strong>Bảo vệ mạch:</strong> Diode 1N4007 triệt Back-EMF · Buck Converter 12V→5V hiệu suất >90%</p></div>
   </div>
@@ -263,26 +262,26 @@ const SLIDES = [
   // ===== SLIDE 13: GIAO DIỆN WEB =====
   `<div class="sl-head"><div class="line"></div><span>Web Interface</span></div>
 <h2 class="sl-title">Giao Diện <span class="grad">Web Dashboard</span></h2>
-<div class="sl-grid c2" style="gap:10px">
-  <div class="gc stat-hover" style="padding:14px">
-    <h4 style="font-size:.95rem">📊 Dashboard — Điểm danh</h4>
-    <div class="my-2" style="display:flex;justify-content:center;align-items:center;height:150px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/dashboard-diemdanh.png" alt="Dashboard điểm danh" style="max-height:150px;max-width:100%;object-fit:contain"></div>
-    <p style="font-size:.85rem">Camera MJPEG 20FPS, nhật ký real-time, nút khóa/mở phòng</p>
+<div class="sl-grid c2">
+  <div class="gc stat-hover">
+    <h4>📊 Dashboard — Điểm danh</h4>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:220px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/dashboard-diemdanh.png" alt="Dashboard điểm danh" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <p>Camera MJPEG 20FPS, nhật ký real-time, nút khóa/mở phòng</p>
   </div>
-  <div class="gc stat-hover" style="padding:14px">
-    <h4 style="font-size:.95rem">📋 Lịch sử điểm danh</h4>
-    <div class="my-2" style="display:flex;justify-content:center;align-items:center;height:150px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/lichsu-diemdanh.png" alt="Lịch sử điểm danh" style="max-height:150px;max-width:100%;object-fit:contain"></div>
-    <p style="font-size:.85rem">Thống kê tổng hợp, lọc theo thời gian, xuất CSV</p>
+  <div class="gc stat-hover">
+    <h4>📋 Lịch sử điểm danh</h4>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:220px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/lichsu-diemdanh.png" alt="Lịch sử điểm danh" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <p>Thống kê tổng hợp, lọc theo thời gian, xuất CSV</p>
   </div>
-  <div class="gc stat-hover" style="padding:14px">
-    <h4 style="font-size:.95rem">🚨 Cảnh báo an ninh</h4>
-    <div class="my-2" style="display:flex;justify-content:center;align-items:center;height:150px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/canh-bao-anninh.png" alt="Cảnh báo an ninh Telegram" style="max-height:150px;max-width:100%;object-fit:contain"></div>
-    <p style="font-size:.85rem">Banner real-time khi phát hiện người lạ, gửi Telegram</p>
+  <div class="gc stat-hover">
+    <h4>🚨 Cảnh báo an ninh</h4>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:220px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/canh-bao-anninh.png" alt="Cảnh báo an ninh Telegram" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <p>Banner real-time khi phát hiện người lạ, gửi Telegram</p>
   </div>
-  <div class="gc stat-hover" style="padding:14px">
-    <h4 style="font-size:.95rem">👥 Thêm người dùng mới</h4>
-    <div class="my-2" style="display:flex;justify-content:center;align-items:center;height:150px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden"><img src="images/them-nguoidung.png" alt="Thêm người dùng mới" style="max-height:150px;max-width:100%;object-fit:contain"></div>
-    <p style="font-size:.85rem">Tạo tài khoản, Enroll khuôn mặt, trích xuất vector tự động</p>
+  <div class="gc stat-hover">
+    <h4>👥 Thêm người dùng mới</h4>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:220px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/them-nguoidung.png" alt="Thêm người dùng mới" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <p>Tạo tài khoản, Enroll khuôn mặt, trích xuất vector tự động</p>
   </div>
 </div>`,
 

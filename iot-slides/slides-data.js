@@ -265,22 +265,22 @@ const SLIDES = [
 <div class="sl-grid c2">
   <div class="gc stat-hover">
     <h4>📊 Dashboard — Điểm danh</h4>
-    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:220px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/dashboard-diemdanh.png" alt="Dashboard điểm danh" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:180px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/dashboard-diemdanh.png" alt="Dashboard điểm danh" style="max-height:180px;max-width:100%;object-fit:contain;border-radius:8px"></div>
     <p>Camera MJPEG 20FPS, nhật ký real-time, nút khóa/mở phòng</p>
   </div>
   <div class="gc stat-hover">
     <h4>📋 Lịch sử điểm danh</h4>
-    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:220px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/lichsu-diemdanh.png" alt="Lịch sử điểm danh" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:180px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/lichsu-diemdanh.png" alt="Lịch sử điểm danh" style="max-height:180px;max-width:100%;object-fit:contain;border-radius:8px"></div>
     <p>Thống kê tổng hợp, lọc theo thời gian, xuất CSV</p>
   </div>
   <div class="gc stat-hover">
     <h4>🚨 Cảnh báo an ninh</h4>
-    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:220px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/canh-bao-anninh.png" alt="Cảnh báo an ninh Telegram" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:180px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/canh-bao-anninh.png" alt="Cảnh báo an ninh Telegram" style="max-height:180px;max-width:100%;object-fit:contain;border-radius:8px"></div>
     <p>Banner real-time khi phát hiện người lạ, gửi Telegram</p>
   </div>
   <div class="gc stat-hover">
     <h4>👥 Thêm người dùng mới</h4>
-    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:220px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/them-nguoidung.png" alt="Thêm người dùng mới" style="max-height:220px;max-width:100%;object-fit:contain;border-radius:8px"></div>
+    <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:180px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/them-nguoidung.png" alt="Thêm người dùng mới" style="max-height:180px;max-width:100%;object-fit:contain;border-radius:8px"></div>
     <p>Tạo tài khoản, Enroll khuôn mặt, trích xuất vector tự động</p>
   </div>
 </div>`,

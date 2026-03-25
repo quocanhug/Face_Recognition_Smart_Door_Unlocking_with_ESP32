@@ -55,7 +55,7 @@ class AttendanceListResponse(BaseModel):
 # ==================== SECURITY ====================
 
 class SecurityConfigSchema(BaseModel):
-    night_start_hour: int = 17
+    night_start_hour: int = 18
     night_end_hour: int = 6
     deny_threshold: int = 2
     auto_lock_night: bool = True

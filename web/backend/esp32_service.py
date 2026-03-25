@@ -149,7 +149,7 @@ class ESP32Service:
         await self.lcd_display("DA DIEM DANH", "Vui long cho...")
 
     async def lcd_room_locked(self):
-        await self.lcd_display("PHONG DA KHOA", "Quay lai hom sau")
+        await self.lcd_display("PHONG DA KHOA", "Comeback tomorrow")
 
     # ========================================
     # RELAY
@@ -292,7 +292,7 @@ class ESP32Simulator:
         await self.lcd_display("DA DIEM DANH", "Vui long cho...")
 
     async def lcd_room_locked(self):
-        await self.lcd_display("PHONG DA KHOA", "Quay lai hom sau")
+        await self.lcd_display("PHONG DA KHOA", "Comeback tomorrow")
 
     async def relay_open(self, duration=3):
         print(f"[RELAY] 🔓 OPEN ({duration}s)")

@@ -269,7 +269,7 @@ async def recognition_loop():
                         # LCD message khác nhau tùy lý do khóa
                         if security.lock_reason == "night":
                             now_str = datetime.now().strftime("%H:%M")
-                            await esp32.lcd_display(now_str, "Quay lai ngay mai")
+                            await esp32.lcd_display(now_str, "Comeback tomorrow")
                         else:
                             await esp32.lcd_room_locked()
 

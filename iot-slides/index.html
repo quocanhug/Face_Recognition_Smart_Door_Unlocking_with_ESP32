@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo IoT - Nhóm 02 | Hệ thống nhận diện khuôn mặt</title>
+  <meta name="description" content="Slide thuyết trình báo cáo IoT - Hệ thống giám sát an ninh và điểm danh thời gian thực bằng nhận diện khuôn mặt">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<div class="slides-wrapper" id="slidesWrapper">
+
+  <!-- SLIDE 1: COVER -->
+  <section class="slide cover-slide grid-bg active" id="slide-1">
+    <div class="slide-content">
+      <p class="university-name">Trường Đại học Sư phạm Kỹ thuật TP.HCM</p>
+      <p class="subject-name">Môn: Vạn Vật Kết Nối (IoT) · HK1 2025-2026 · Nhóm 02</p>
+      <h1 class="main-title">Hệ Thống Giám Sát An Ninh<br>& Điểm Danh Thời Gian Thực<br>Bằng Nhận Diện Khuôn Mặt</h1>
+      <p class="main-subtitle">ESP32-S3-CAM · Python Flask · Face Recognition · IoT</p>
+      <div class="team-info">
+        <div class="team-member"><div class="avatar">A</div><span class="name">Đinh Quốc Anh</span><span class="mssv">24133003</span></div>
+        <div class="team-member"><div class="avatar">H</div><span class="name">Lý Gia Hân</span><span class="mssv">24131016</span></div>
+        <div class="team-member"><div class="avatar">T</div><span class="name">Đỗ Thanh Thành Tài</span><span class="mssv">24133050</span></div>
+      </div>
+      <div class="teacher-info">GVHD: <strong>Đinh Công Đoan</strong></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: MỤC LỤC -->
+  <section class="slide grid-bg" id="slide-2">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Tổng quan</div>
+      <h1 class="slide-title">Nội Dung Trình Bày</h1>
+      <div class="card-grid cols-3" style="margin-top:32px">
+        <div class="glass-card animate-in"><span class="card-icon">📋</span><div class="card-title">Phần 1: Mở đầu</div><div class="card-desc">Đặt vấn đề, tính cấp thiết, mục tiêu nghiên cứu</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🏗️</span><div class="card-title">Phần 2: Kiến trúc</div><div class="card-desc">Thiết kế hệ thống, lựa chọn công nghệ</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🔧</span><div class="card-title">Phần 3: Phần cứng</div><div class="card-desc">ESP32-S3, Relay, LCD, Khóa điện từ</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🤖</span><div class="card-title">Phần 4: AI Pipeline</div><div class="card-desc">YOLOv8, FaceNet, Hybrid Metric</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🌐</span><div class="card-title">Phần 5: Web & Backend</div><div class="card-desc">FastAPI, WebSocket, Dashboard</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">📊</span><div class="card-title">Phần 6: Kết quả</div><div class="card-desc">Thực nghiệm, đánh giá, hướng phát triển</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: ĐẶT VẤN ĐỀ -->
+  <section class="slide" id="slide-3">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 1 · Mở đầu</div>
+      <h1 class="slide-title">Đặt Vấn Đề</h1>
+      <p class="slide-subtitle">Thực trạng kiểm soát ra vào phòng thực hành tại các trường đại học</p>
+      <div class="card-grid cols-3">
+        <div class="glass-card animate-in">
+          <span class="card-icon">🔑</span>
+          <div class="card-title">Chìa khóa / Thẻ từ</div>
+          <div class="card-desc">Dễ mất, dễ sao chép, không xác thực được danh tính thực sự của người dùng</div>
+        </div>
+        <div class="glass-card animate-in">
+          <span class="card-icon">🔢</span>
+          <div class="card-title">Mã PIN</div>
+          <div class="card-desc">Dễ lộ khi nhập nơi đông người, có thể chia sẻ, quên mã</div>
+        </div>
+        <div class="glass-card animate-in">
+          <span class="card-icon">📝</span>
+          <div class="card-title">Sổ ký tay</div>
+          <div class="card-desc">Không tin cậy, không truy vết được chính xác khi xảy ra sự cố</div>
+        </div>
+      </div>
+      <div class="highlight-box orange" style="margin-top:28px">
+        <p>📊 Theo khảo sát <strong>Verizon Data Breach Report (2023)</strong>: hơn <strong>80%</strong> các vụ xâm nhập trái phép liên quan đến thông tin xác thực bị đánh cắp hoặc bị đoán.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: TÍNH CẤP THIẾT -->
+  <section class="slide" id="slide-4">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 1 · Mở đầu</div>
+      <h1 class="slide-title">Tính Cấp Thiết & Lý Do Chọn Đề Tài</h1>
+      <div class="two-col">
+        <div>
+          <h3>🎯 Tại sao nhận diện khuôn mặt?</h3>
+          <ul class="icon-list">
+            <li><span class="icon">✅</span> Không thể để quên, sao chép hay chuyển nhượng</li>
+            <li><span class="icon">✅</span> Không tiếp xúc (contactless) - xu hướng hậu COVID-19</li>
+            <li><span class="icon">✅</span> Xác thực danh tính chính xác, ghi log tự động</li>
+            <li><span class="icon">✅</span> Chi phí ESP32-S3-CAM chưa đến 200.000 VNĐ</li>
+          </ul>
+        </div>
+        <div>
+          <h3>🔬 Khoảng trống nghiên cứu</h3>
+          <ul class="icon-list">
+            <li><span class="icon">🔸</span> Phần lớn đề tài dùng Raspberry Pi - chi phí cao (1.2-1.5 triệu)</li>
+            <li><span class="icon">🔸</span> Chưa khai thác tiềm năng ESP32 trong nhận diện khuôn mặt</li>
+            <li><span class="icon">🔸</span> Cơ hội phát triển giải pháp chi phí thấp, kết nối linh hoạt</li>
+          </ul>
+          <div class="highlight-box green" style="margin-top:16px">
+            <p>💡 Mục tiêu: Chứng minh tính khả thi của kiến trúc <strong>"thiết bị nhúng rẻ + server AI"</strong> trong bài toán bảo mật thực tiễn</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: MỤC TIÊU -->
+  <section class="slide" id="slide-5">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 1 · Mở đầu</div>
+      <h1 class="slide-title">Mục Tiêu Đề Tài</h1>
+      <div class="card-grid cols-3" style="margin-top:24px">
+        <div class="glass-card stat-card animate-in"><div class="stat-value">≥90%</div><div class="stat-label">Độ chính xác nhận diện</div></div>
+        <div class="glass-card stat-card animate-in"><div class="stat-value">≤3s</div><div class="stat-label">Thời gian phản hồi</div></div>
+        <div class="glass-card stat-card animate-in"><div class="stat-value">≤5%</div><div class="stat-label">Tỷ lệ chấp nhận sai (FAR)</div></div>
+      </div>
+      <ul class="feature-list" style="margin-top:28px">
+        <li class="animate-in"><span class="icon">📸</span> Lập trình ESP32-S3-CAM thu thập ảnh JPEG và truyền lên server qua HTTP POST</li>
+        <li class="animate-in"><span class="icon">🧠</span> Xây dựng server Python với endpoint nhận diện khuôn mặt trả về JSON</li>
+        <li class="animate-in"><span class="icon">👥</span> CSDL khuôn mặt: tối thiểu 5 người, 15–20 ảnh/người</li>
+        <li class="animate-in"><span class="icon">🔓</span> Điều khiển relay + khóa điện từ JF-0826B mở 3 giây khi nhận diện thành công</li>
+        <li class="animate-in"><span class="icon">📺</span> Hiển thị tên/từ chối trên LCD 1602 I2C + ghi log CSV</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: KIẾN TRÚC HỆ THỐNG -->
+  <section class="slide grid-bg" id="slide-6">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 2 · Kiến trúc</div>
+      <h1 class="slide-title">Kiến Trúc Tổng Thể Hệ Thống</h1>
+      <p class="slide-subtitle">Mô hình Client-Server hai tầng trong mạng LAN nội bộ</p>
+      <div class="arch-diagram">
+        <div class="arch-layer">
+          <div class="arch-box blue">🌐 Web Dashboard<br><small>HTML/CSS/JS</small></div>
+          <div class="arch-box blue">📱 Telegram Bot<br><small>Cảnh báo từ xa</small></div>
+        </div>
+        <div class="arch-connector">⬇️ HTTP / WebSocket ⬇️</div>
+        <div class="arch-layer">
+          <div class="arch-box purple">🧠 AI Server (Python)<br><small>FastAPI + YOLOv8 + FaceNet</small></div>
+          <div class="arch-box purple">🗄️ Database<br><small>SQLite + encodings.pkl</small></div>
+        </div>
+        <div class="arch-connector">⬇️ HTTP REST API ⬇️</div>
+        <div class="arch-layer">
+          <div class="arch-box green">📸 ESP32-S3-CAM<br><small>Camera OV3660</small></div>
+          <div class="arch-box orange">🔓 Relay + Khóa JF-0826B<br><small>Fail-Secure 12V</small></div>
+          <div class="arch-box pink">📺 LCD 1602 I2C<br><small>Phản hồi trực quan</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: THÀNH PHẦN HỆ THỐNG -->
+  <section class="slide" id="slide-7">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 2 · Kiến trúc</div>
+      <h1 class="slide-title">6 Khối Chức Năng Chính</h1>
+      <div class="card-grid cols-3">
+        <div class="glass-card animate-in"><span class="card-icon">🧠</span><div class="card-title">Khối Xử lý Trung tâm</div><div class="card-desc">ESP32-S3-CAM N16R8 — "bộ não" phần cứng, điều phối camera, relay, LCD</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">📷</span><div class="card-title">Khối Đầu vào</div><div class="card-desc">Camera OV3660 QVGA 320×240, nút nhấn kích hoạt, ảnh JPEG 10-25KB</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">⚡</span><div class="card-title">Khối Chấp hành</div><div class="card-desc">Module Relay 5V + Khóa JF-0826B 12V, cơ chế Fail-Secure, tự khóa sau 3s</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🖥️</span><div class="card-title">Khối Server</div><div class="card-desc">Python FastAPI + face_recognition + ResNet-34/FaceNet, pipeline AI 2 bước</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">📡</span><div class="card-title">Khối Giao tiếp mạng</div><div class="card-desc">Wi-Fi 802.11 b/g/n, HTTP POST image/jpeg, phản hồi JSON ≤500ms</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">📺</span><div class="card-title">Khối Hiển thị</div><div class="card-desc">LCD 1602 I2C (PCF8574), SDA/SCL 2 dây, phản hồi tức thì tại cửa</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8: YÊU CẦU CHỨC NĂNG -->
+  <section class="slide" id="slide-8">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 2 · Phân tích yêu cầu</div>
+      <h1 class="slide-title">Yêu Cầu Chức Năng</h1>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Yêu cầu</th><th>Mô tả chi tiết</th></tr></thead>
+          <tbody>
+            <tr><td>📸 Thu thập ảnh</td><td>ESP32-S3-CAM chụp ảnh khuôn mặt qua OV3660 khi nhấn nút</td></tr>
+            <tr><td>🧠 Nhận diện khuôn mặt</td><td>Server Python xác định danh tính và trả kết quả về thiết bị</td></tr>
+            <tr><td>🔓 Kiểm soát khóa cửa</td><td>Tự động mở khóa JF-0826B khi thành công, tự khóa sau 3s</td></tr>
+            <tr><td>📺 Hiển thị trạng thái</td><td>LCD 1602 hiển thị tên người / thông báo từ chối</td></tr>
+            <tr><td>👤 Đăng ký người mới</td><td>Thêm khuôn mặt mới qua công cụ trên server</td></tr>
+            <tr><td>📝 Ghi nhật ký</td><td>Tự động ghi log tên, thời gian, kết quả vào CSV</td></tr>
+            <tr><td>⚠️ Phân biệt người lạ</td><td>Từ chối và cảnh báo khi khuôn mặt không có trong CSDL</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: YÊU CẦU PHI CHỨC NĂNG -->
+  <section class="slide" id="slide-9">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 2 · Phân tích yêu cầu</div>
+      <h1 class="slide-title">Yêu Cầu Phi Chức Năng</h1>
+      <div class="card-grid cols-2">
+        <div class="glass-card animate-in">
+          <div class="card-title">⚡ Hiệu năng</div>
+          <ul class="icon-list"><li><span class="icon">•</span>Tổng thời gian chụp → mở khóa ≤ 3 giây</li><li><span class="icon">•</span>Xử lý nhận diện trên server ≤ 2 giây/ảnh</li><li><span class="icon">•</span>Truyền ảnh Wi-Fi ≤ 500ms</li></ul>
+        </div>
+        <div class="glass-card animate-in">
+          <div class="card-title">🎯 Độ chính xác</div>
+          <ul class="icon-list"><li><span class="icon">•</span>True Positive Rate ≥ 90% (ánh sáng bình thường)</li><li><span class="icon">•</span>False Acceptance Rate ≤ 5%</li></ul>
+        </div>
+        <div class="glass-card animate-in">
+          <div class="card-title">🔄 Độ ổn định</div>
+          <ul class="icon-list"><li><span class="icon">•</span>Hoạt động liên tục ≥ 8 giờ</li><li><span class="icon">•</span>Tự kết nối lại Wi-Fi khi bị ngắt</li><li><span class="icon">•</span>Hiển thị lỗi rõ ràng thay vì treo hệ thống</li></ul>
+        </div>
+        <div class="glass-card animate-in">
+          <div class="card-title">🔒 Bảo mật</div>
+          <ul class="icon-list"><li><span class="icon">•</span>Fail-Secure: khóa đóng khi mất điện/mất kết nối</li><li><span class="icon">•</span>Ghi log mọi trường hợp nhận diện thất bại</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 10: LỰA CHỌN MCU -->
+  <section class="slide" id="slide-10">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 2 · Lựa chọn công nghệ</div>
+      <h1 class="slide-title">Lựa Chọn Vi Điều Khiển</h1>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Tiêu chí</th><th>Raspberry Pi 4</th><th>ESP32-CAM</th><th>ESP32-S3-CAM N16R8 ✅</th></tr></thead>
+          <tbody>
+            <tr><td>Camera tích hợp</td><td>❌ Module rời</td><td>✅ OV3660</td><td>✅ OV3660</td></tr>
+            <tr><td>PSRAM</td><td>4GB LPDDR4</td><td>4MB QSPI</td><td><strong>8MB OPI</strong></td></tr>
+            <tr><td>Flash</td><td>MicroSD</td><td>4MB</td><td><strong>16MB</strong></td></tr>
+            <tr><td>CPU</td><td>1.8GHz quad</td><td>240MHz dual</td><td>240MHz dual LX7</td></tr>
+            <tr><td>Chi phí</td><td class="badge-red">~1.2-1.5 triệu</td><td>~80.000đ</td><td class="badge-green"><strong>~150-200K</strong></td></tr>
+            <tr><td>Tiêu thụ điện</td><td>~3W idle</td><td>~0.5W</td><td><strong>~0.5W</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="highlight-box" style="margin-top:20px">
+        <p>🏆 <strong>ESP32-S3-CAM N16R8</strong> được chọn: PSRAM 8MB ổn định, Flash 16MB đủ firmware, kiến trúc LX7 mạnh hơn, chi phí thấp phù hợp IoT</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 11: LỰA CHỌN THUẬT TOÁN -->
+  <section class="slide" id="slide-11">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 2 · Lựa chọn công nghệ</div>
+      <h1 class="slide-title">Lựa Chọn Thuật Toán & Kiến Trúc</h1>
+      <div class="two-col">
+        <div>
+          <h3>Thuật toán nhận diện</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Thuật toán</th><th>Độ chính xác</th><th>Tốc độ</th></tr></thead>
+              <tbody>
+                <tr><td>Haar + LBPH</td><td>75-85%</td><td>Rất nhanh</td></tr>
+                <tr><td>HOG + SVM</td><td>85-90%</td><td>Nhanh</td></tr>
+                <tr><td><strong>face_recognition ✅</strong></td><td><strong>92-97%</strong></td><td>1-2s/ảnh</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h3>Kiến trúc xử lý</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Tiêu chí</th><th>On-device</th><th>Client-Server ✅</th></tr></thead>
+              <tbody>
+                <tr><td>Độ chính xác</td><td>~85%</td><td><strong>~93%</strong></td></tr>
+                <tr><td>Nâng cấp</td><td>Flash lại FW</td><td><strong>Cập nhật SW</strong></td></tr>
+                <tr><td>Mở rộng</td><td>~10-20 người</td><td><strong>Không giới hạn</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 12: LINH KIỆN -->
+  <section class="slide" id="slide-12">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 3 · Phần cứng</div>
+      <h1 class="slide-title">Linh Kiện Phần Cứng</h1>
+      <div class="card-grid cols-3">
+        <div class="glass-card animate-in"><span class="card-icon">📸</span><div class="card-title">ESP32-S3-CAM N16R8</div><div class="card-desc">Xtensa LX7 240MHz, 8MB PSRAM, 16MB Flash, Wi-Fi 802.11 b/g/n, Camera DVP 8-bit</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">⚡</span><div class="card-title">Module Relay 12V</div><div class="card-desc">250VAC/10A, optocoupler PC817 cách ly, kích tự giữ (Self-holding)</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">📺</span><div class="card-title">LCD 1602 I2C</div><div class="card-desc">16×2 ký tự, chip PCF8574, I2C 100kHz, chỉ cần 2 dây SDA+SCL</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🔓</span><div class="card-title">Khóa JF-0826B 12V</div><div class="card-desc">Solenoid Fail-Secure, 2A, mở trong 50-80ms, tự khóa khi mất điện</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🔌</span><div class="card-title">Adapter 12V-2A</div><div class="card-desc">24W output, biên dự phòng 2.5× so với thực tế ~9W</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🔔</span><div class="card-title">Buzzer Active 5V</div><div class="card-desc">3 pattern: 1 beep thành công, 2 beep từ chối, 3 beep lỗi</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 13: SƠ ĐỒ KẾT NỐI -->
+  <section class="slide grid-bg" id="slide-13">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 3 · Phần cứng</div>
+      <h1 class="slide-title">Sơ Đồ Kết Nối Phần Cứng</h1>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Chân ESP32-S3</th><th>Kết nối đến</th><th>Chức năng</th></tr></thead>
+          <tbody>
+            <tr><td>GPIO 0</td><td>Nút nhấn</td><td>Kích hoạt nhận diện</td></tr>
+            <tr><td>GPIO 1 (SDA)</td><td>LCD 1602 SDA</td><td>Dữ liệu I2C</td></tr>
+            <tr><td>GPIO 2 (SCL)</td><td>LCD 1602 SCL</td><td>Xung nhịp I2C</td></tr>
+            <tr><td>GPIO 3</td><td>Relay IN</td><td>Điều khiển đóng/ngắt khóa</td></tr>
+            <tr><td>GPIO 14</td><td>Buzzer (+)</td><td>Phát âm thanh cảnh báo</td></tr>
+            <tr><td>DVP 8-bit</td><td>Camera OV3660</td><td>Tích hợp sẵn trên module</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="highlight-box purple" style="margin-top:20px">
+        <p>⚡ <strong>Bảo vệ mạch:</strong> Diode flyback 1N4007 mắc song song với cuộn dây khóa để triệt tiêu Back-EMF. Buck Converter hạ 12V→5V hiệu suất >90%.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 14: PIPELINE NHẬN DIỆN -->
+  <section class="slide grid-bg" id="slide-14">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 4 · AI Pipeline</div>
+      <h1 class="slide-title">Pipeline Nhận Diện Khuôn Mặt</h1>
+      <p class="slide-subtitle">Mô hình Hybrid 3 giai đoạn đạt độ chính xác tối ưu</p>
+      <div class="flow-horizontal">
+        <div class="flow-step"><span class="step-icon">📸</span><span class="step-label">Capture</span><span class="step-detail">ESP32 → JPEG</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="step-icon">🔍</span><span class="step-label">YOLOv8 Nano</span><span class="step-detail">Face Detection<br>conf ≥ 0.5</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="step-icon">📐</span><span class="step-label">MTCNN</span><span class="step-detail">Face Alignment</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="step-icon">🧠</span><span class="step-label">FaceNet</span><span class="step-detail">Vector 512-D<br>L2 Normalized</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="step-icon">⚖️</span><span class="step-label">Hybrid Match</span><span class="step-detail">Cosine + L2</span></div>
+      </div>
+      <div class="formula" style="margin-top:24px">Combined Score = 0.7 × Cosine Similarity + 0.3 × max(0, 1 − L2_distance / 2.0)</div>
+      <div class="highlight-box green" style="margin-top:16px">
+        <p>✅ Nếu <strong>Combined Score ≥ 0.80</strong> → Xác nhận danh tính. Hybrid metric tăng chính xác so với dùng một metric đơn lẻ.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 15: NGUYÊN LÝ HOẠT ĐỘNG -->
+  <section class="slide" id="slide-15">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 4 · Hoạt động</div>
+      <h1 class="slide-title">Nguyên Lý Hoạt Động</h1>
+      <div class="two-col">
+        <div>
+          <h3 style="color:var(--accent-green)">✅ Nhận diện thành công</h3>
+          <ul class="icon-list">
+            <li><span class="icon">1️⃣</span> Nhấn nút → Camera chụp JPEG</li>
+            <li><span class="icon">2️⃣</span> HTTP POST → Server xử lý AI</li>
+            <li><span class="icon">3️⃣</span> JSON phản hồi → Tên người dùng</li>
+            <li><span class="icon">4️⃣</span> GPIO 3 HIGH → Relay đóng → Khóa mở 3s</li>
+            <li><span class="icon">5️⃣</span> LCD: "CHAO MUNG! / [Tên]"</li>
+            <li><span class="icon">6️⃣</span> Buzzer: 1 beep ngắn 200ms</li>
+            <li><span class="icon">7️⃣</span> Ghi log SUCCESS vào CSV</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="color:var(--accent-red)">❌ Từ chối truy cập</h3>
+          <ul class="icon-list">
+            <li><span class="icon">1️⃣</span> Khuôn mặt không khớp CSDL</li>
+            <li><span class="icon">2️⃣</span> Relay OFF → Cửa vẫn KHÓA</li>
+            <li><span class="icon">3️⃣</span> LCD: "ACCESS DENY"</li>
+            <li><span class="icon">4️⃣</span> Buzzer: 2 beep dài cảnh báo</li>
+            <li><span class="icon">5️⃣</span> deny_count++</li>
+            <li><span class="icon">6️⃣</span> Nếu vượt ngưỡng → Telegram + Còi báo động 30s</li>
+            <li><span class="icon">7️⃣</span> Ghi log FAILED vào CSV</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 16: BACKEND -->
+  <section class="slide" id="slide-16">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 5 · Backend</div>
+      <h1 class="slide-title">Backend Architecture</h1>
+      <p class="slide-subtitle">FastAPI + Uvicorn + Asynchronous Programming</p>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Nhóm</th><th>Endpoint</th><th>Mô tả</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-blue">Nhận diện</span></td><td>POST /recognize</td><td>Nhận JPEG, chạy pipeline AI, trả JSON</td></tr>
+            <tr><td><span class="badge badge-purple">Người dùng</span></td><td>GET/POST /api/users</td><td>CRUD người dùng</td></tr>
+            <tr><td><span class="badge badge-green">Đăng ký</span></td><td>POST /api/users/{id}/enroll</td><td>Đăng ký khuôn mặt mới</td></tr>
+            <tr><td><span class="badge badge-yellow">Điểm danh</span></td><td>GET /api/attendance/*</td><td>Nhật ký hôm nay + lịch sử</td></tr>
+            <tr><td><span class="badge badge-red">An ninh</span></td><td>POST /api/security/lock</td><td>Khóa/mở phòng từ xa</td></tr>
+            <tr><td><span class="badge badge-blue">Hệ thống</span></td><td>GET /api/status</td><td>Trạng thái tổng quan</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 17: CODE -->
+  <section class="slide" id="slide-17">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 5 · Code</div>
+      <h1 class="slide-title">Code Highlight</h1>
+      <div class="two-col">
+        <div>
+          <h3>Recognition Loop (Async)</h3>
+          <div class="code-block"><span class="code-lang">Python</span><span class="code-keyword">async def</span> <span class="code-function">recognition_loop</span>():
+    <span class="code-keyword">while</span> recognition_active:
+        <span class="code-comment"># 1. Chụp frame từ ESP32</span>
+        frame = <span class="code-keyword">await</span> esp32.capture_frame()
+        <span class="code-comment"># 2. AI trong thread pool</span>
+        results = <span class="code-keyword">await</span> loop.run_in_executor(
+            <span class="code-variable">None</span>, face_service.detect, frame)
+        <span class="code-comment"># 3. Debounce 30s chống trùng</span>
+        <span class="code-keyword">if</span> now - last[uid] < <span class="code-number">30</span>:
+            <span class="code-keyword">continue</span>
+        <span class="code-keyword">await</span> asyncio.sleep(<span class="code-number">0.5</span>)</div>
+        </div>
+        <div>
+          <h3>Hybrid Metric</h3>
+          <div class="code-block"><span class="code-lang">Python</span><span class="code-keyword">def</span> <span class="code-function">recognize</span>(self, embedding):
+    <span class="code-keyword">for</span> uid, mean <span class="code-keyword">in</span> self._means.items():
+        <span class="code-comment"># Cosine similarity</span>
+        sim = np.dot(embedding, mean)
+        <span class="code-comment"># L2 distance</span>
+        l2 = np.linalg.norm(embedding - mean)
+        <span class="code-comment"># Kết hợp 70% + 30%</span>
+        combined = <span class="code-number">0.7</span>*sim + <span class="code-number">0.3</span>*max(<span class="code-number">0</span>,<span class="code-number">1</span>-l2/<span class="code-number">2</span>)
+    <span class="code-keyword">if</span> best >= <span class="code-number">0.80</span>:
+        <span class="code-keyword">return</span> uid, best</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 18: WEB DASHBOARD -->
+  <section class="slide" id="slide-18">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 5 · Giao diện</div>
+      <h1 class="slide-title">Giao Diện Web Dashboard</h1>
+      <div class="card-grid cols-2">
+        <div class="glass-card animate-in"><span class="card-icon">📊</span><div class="card-title">Dashboard chính</div><div class="card-desc">Luồng camera trực tiếp (MJPEG 20FPS), bảng thống kê, nhật ký điểm danh real-time qua WebSocket, nút khóa/mở phòng từ xa</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">📋</span><div class="card-title">Lịch sử điểm danh</div><div class="card-desc">Bảng thống kê tổng hợp, lọc theo khoảng thời gian, xuất dữ liệu CSV, tra cứu theo tên/MSSV</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🚨</span><div class="card-title">Cảnh báo an ninh</div><div class="card-desc">Banner cảnh báo real-time khi phát hiện người lạ, hiển thị số lần từ chối, tự động gửi Telegram</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">👥</span><div class="card-title">Quản lý người dùng</div><div class="card-desc">Thêm/sửa/xóa người dùng, đăng ký khuôn mặt (Enroll), chụp 3-5 ảnh tự động trích xuất vector</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top:20px">
+        <p>🔄 <strong>WebSocket Fan-out:</strong> Server broadcast sự kiện đến tất cả Dashboard clients đồng thời — cập nhật tức thì không cần refresh trang</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 19: AN NINH -->
+  <section class="slide" id="slide-19">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 5 · An ninh</div>
+      <h1 class="slide-title">Cơ Chế An Ninh Thông Minh</h1>
+      <div class="card-grid cols-2">
+        <div class="glass-card animate-in">
+          <div class="card-title">🔄 Debounce 30s</div>
+          <div class="card-desc">Bỏ qua yêu cầu trùng lặp từ cùng một người trong 30 giây — tránh ghi điểm danh trùng</div>
+        </div>
+        <div class="glass-card animate-in">
+          <div class="card-title">⏱️ Cooldown 5s</div>
+          <div class="card-desc">Khoảng trễ giữa 2 lần cảnh báo người lạ — tránh spam Buzzer và Telegram</div>
+        </div>
+        <div class="glass-card animate-in">
+          <div class="card-title">📈 Leo thang phản ứng</div>
+          <div class="card-desc">Khi deny_count vượt ngưỡng → Gửi ảnh xâm nhập qua Telegram + Hú còi 30s</div>
+        </div>
+        <div class="glass-card animate-in">
+          <div class="card-title">🌙 Night Mode Auto-lock</div>
+          <div class="card-desc">Tự động khóa phòng theo lịch trình ban đêm, hỗ trợ khóa thủ công từ xa</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 20: KẾT QUẢ THỰC NGHIỆM -->
+  <section class="slide" id="slide-20">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 6 · Kết quả</div>
+      <h1 class="slide-title">Kết Quả Thực Nghiệm</h1>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Kịch bản</th><th>Kết quả</th><th>Thời gian</th></tr></thead>
+          <tbody>
+            <tr><td>✅ Nhận diện hợp lệ</td><td>LCD hiển thị tên, Buzzer 1 beep, Relay mở 3s</td><td>~2 giây</td></tr>
+            <tr><td>❌ Nhận diện không hợp lệ</td><td>LCD "ACCESS DENY", Buzzer 2 beep dài, cửa vẫn khóa</td><td>~2 giây</td></tr>
+            <tr><td>🔄 Debounce test</td><td>Lần 2 hiển thị "DA DIEM DANH", không ghi trùng</td><td>< 30s</td></tr>
+            <tr><td>🌐 Điều khiển từ xa</td><td>Nhấn "MỞ KHÓA" trên Dashboard, khóa mở 3s</td><td>< 1 giây</td></tr>
+            <tr><td>👤 Đăng ký mới (Enroll)</td><td>Chụp 3-5 ảnh → trích xuất 512-D → nhận diện ngay</td><td>~10 giây</td></tr>
+            <tr><td>🔌 Fail-Secure test</td><td>Ngắt nguồn → lò xo đẩy chốt → cửa vẫn KHÓA</td><td>Tức thì</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-grid cols-3" style="margin-top:20px">
+        <div class="glass-card stat-card"><div class="stat-value">~2s</div><div class="stat-label">Thời gian phản hồi TB</div></div>
+        <div class="glass-card stat-card"><div class="stat-value">>90%</div><div class="stat-label">Độ chính xác</div></div>
+        <div class="glass-card stat-card"><div class="stat-value">8h+</div><div class="stat-label">Hoạt động liên tục</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 21: KHÓ KHĂN -->
+  <section class="slide" id="slide-21">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 6 · Khó khăn</div>
+      <h1 class="slide-title">Khó Khăn & Giải Pháp</h1>
+      <div class="card-grid cols-2" style="font-size:0.9rem">
+        <div class="glass-card animate-in"><div class="card-title">⚡ Sụt áp & Back-EMF</div><div class="card-desc">Dòng khởi động 500mA gây reset ESP32 → <strong>Tách nguồn 12V/5V + Diode 1N4007</strong></div></div>
+        <div class="glass-card animate-in"><div class="card-title">📌 Xung đột GPIO</div><div class="card-desc">DVP camera + PSRAM chiếm hầu hết GPIO → <strong>LCD qua I2C chỉ 2 dây, GPIO 3/14 an toàn</strong></div></div>
+        <div class="glass-card animate-in"><div class="card-title">⏱️ Độ trễ & Bottleneck</div><div class="card-desc">AI block event loop → <strong>run_in_executor() + QVGA 320×240 + JPEG 70%</strong></div></div>
+        <div class="glass-card animate-in"><div class="card-title">🔆 Sai số môi trường</div><div class="card-desc">Ánh sáng/góc thay đổi → <strong>Hybrid Metric (70% Cosine + 30% L2) + Mean Embedding</strong></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 22: KẾT QUẢ ĐẠT ĐƯỢC -->
+  <section class="slide grid-bg" id="slide-22">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 6 · Kết luận</div>
+      <h1 class="slide-title">Kết Quả Đạt Được</h1>
+      <ul class="feature-list">
+        <li class="animate-in"><span class="icon">🏗️</span><strong>Hệ sinh thái AIoT tích hợp:</strong> Hội tụ Computer Vision + IoT, tự động hóa hoàn chỉnh từ thu thập tại biên đến xử lý tại server</li>
+        <li class="animate-in"><span class="icon">🧠</span><strong>Thuật toán nhận diện đa tầng:</strong> Hybrid Model YOLOv8 + FaceNet 512-D, Cosine + L2 Similarity, ngưỡng 0.80</li>
+        <li class="animate-in"><span class="icon">⚙️</span><strong>Hạ tầng phần cứng hoàn chỉnh:</strong> ESP32-S3 + OV3660 + LCD + Relay + Buzzer, chu trình tương tác khép kín</li>
+        <li class="animate-in"><span class="icon">🌐</span><strong>Web Dashboard real-time:</strong> FastAPI + WebSocket + MJPEG 20FPS, quản lý người dùng và log điểm danh</li>
+        <li class="animate-in"><span class="icon">🔒</span><strong>An ninh thông minh:</strong> Day/Night auto-lock, leo thang cảnh báo, Telegram Bot API</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 23: ƯU NHƯỢC ĐIỂM -->
+  <section class="slide" id="slide-23">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 6 · Đánh giá</div>
+      <h1 class="slide-title">Ưu Điểm & Nhược Điểm</h1>
+      <div class="comparison">
+        <div class="glass-card">
+          <div class="col-header" style="color:var(--accent-green)">✅ Ưu điểm</div>
+          <ul class="icon-list">
+            <li><span class="icon">•</span>Số hóa quy trình, loại bỏ rủi ro thẻ từ/chìa khóa</li>
+            <li><span class="icon">•</span>Giám sát real-time qua WebSocket + MJPEG</li>
+            <li><span class="icon">•</span>Bảo mật dữ liệu tập trung tại server</li>
+            <li><span class="icon">•</span>Chi phí phần cứng thấp (~200K cho ESP32)</li>
+            <li><span class="icon">•</span>Tính linh hoạt và tương thích cao</li>
+          </ul>
+        </div>
+        <div class="glass-card">
+          <div class="col-header" style="color:var(--accent-red)">⚠️ Nhược điểm</div>
+          <ul class="icon-list">
+            <li><span class="icon">•</span>Phụ thuộc Wi-Fi — timeout khi nghẽn mạng</li>
+            <li><span class="icon">•</span>Camera OV3660 giới hạn trong điều kiện ánh sáng kém</li>
+            <li><span class="icon">•</span>AI nặng — cần CPU/GPU server tốt</li>
+            <li><span class="icon">•</span>SQLite chỉ phù hợp prototype</li>
+            <li><span class="icon">•</span>Chưa có anti-spoofing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 24: HƯỚNG PHÁT TRIỂN -->
+  <section class="slide" id="slide-24">
+    <div class="slide-content">
+      <div class="section-label"><span class="dot"></span> Phần 6 · Tương lai</div>
+      <h1 class="slide-title">Hướng Phát Triển</h1>
+      <div class="card-grid cols-2">
+        <div class="glass-card animate-in"><span class="card-icon">📸</span><div class="card-title">Nâng cấp camera</div><div class="card-desc">Camera độ phân giải cao + cảm biến hồng ngoại (IR) cho nhận diện ban đêm</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">🛡️</span><div class="card-title">Anti-Spoofing</div><div class="card-desc">Liveness Detection dựa trên chuyển động hoặc phân tích chiều sâu — chống ảnh 2D/video</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">☁️</span><div class="card-title">Cloud & Tăng tốc</div><div class="card-desc">TensorRT/ONNX + PostgreSQL/MySQL + triển khai Cloud đa chi nhánh</div></div>
+        <div class="glass-card animate-in"><span class="card-icon">📱</span><div class="card-title">Mobile App</div><div class="card-desc">Native App + Push Notification tức thời, quản lý từ xa mọi lúc mọi nơi</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top:24px">
+        <p>🔐 <strong>Xác thực đa nhân tố (MFA):</strong> Tích hợp RFID hoặc vân tay tại biên (Edge), đảm bảo vận hành khi mất kết nối Server</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 25: CẢM ƠN -->
+  <section class="slide grid-bg thankyou-slide" id="slide-25">
+    <div class="slide-content">
+      <div class="big-emoji">🎓</div>
+      <h1 class="thankyou-title">Cảm Ơn Thầy Và Các Bạn<br>Đã Lắng Nghe!</h1>
+      <p class="thankyou-sub" style="margin-bottom:40px">Hệ thống giám sát an ninh & điểm danh thời gian thực bằng nhận diện khuôn mặt</p>
+      <div class="team-info">
+        <div class="team-member"><div class="avatar" style="background:var(--gradient-blue)">A</div><span class="name">Đinh Quốc Anh</span></div>
+        <div class="team-member"><div class="avatar" style="background:var(--gradient-purple)">H</div><span class="name">Lý Gia Hân</span></div>
+        <div class="team-member"><div class="avatar" style="background:var(--gradient-green)">T</div><span class="name">Đỗ Thanh Thành Tài</span></div>
+      </div>
+      <div class="teacher-info" style="margin-top:24px">GVHD: <strong>ThS. Đinh Công Đoan</strong> · Nhóm 02 · HK1 2025-2026</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav-buttons">
+  <button class="nav-btn" id="prevBtn" onclick="prevSlide()" title="Previous">◀</button>
+  <button class="nav-btn" id="nextBtn" onclick="nextSlide()" title="Next">▶</button>
+</div>
+
+<div class="slide-counter">
+  <span class="current" id="currentSlide">1</span>
+  <span>/</span>
+  <span id="totalSlides">25</span>
+</div>
+
+<div class="keyboard-hint">
+  <span><kbd>←</kbd><kbd>→</kbd> Navigate</span>
+  <span><kbd>F</kbd> Fullscreen</span>
+  <span><kbd>Home</kbd> First</span>
+  <span><kbd>End</kbd> Last</span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

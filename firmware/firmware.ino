@@ -45,8 +45,8 @@
 // ============================================
 // CẤU HÌNH WIFI - ĐỔI THEO MẠNG CỦA BẠN
 // ============================================
-const char* WIFI_SSID     = "Wi-MESH - HCMUTE";      // ← Đổi
-const char* WIFI_PASSWORD  = "hcmute@2024";   // ← Đổi
+const char* WIFI_SSID     = "KhongGianSangTao";      // ← Đổi
+const char* WIFI_PASSWORD  = "";   // ← Đổi
 
 // ============================================
 // CẤU HÌNH CAMERA
@@ -806,7 +806,12 @@ void wifi_connect() {
     lcd_show("SMART ATTEND", "Connecting WiFi");
 
     WiFi.mode(WIFI_STA);
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    if (strlen(WIFI_PASSWORD) == 0) {
+        Serial.println("[WIFI] Connecting to OPEN network (No Password)");
+        WiFi.begin(WIFI_SSID);
+    } else {
+        WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    }
 
     Serial.printf("[WIFI] Connecting to %s", WIFI_SSID);
 

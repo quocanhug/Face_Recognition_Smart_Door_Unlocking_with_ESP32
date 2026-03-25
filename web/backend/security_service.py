@@ -36,6 +36,7 @@ class SecurityService:
         self._deny_count = 0
         self._alarm_active = False
         self._room_locked = False  # Remote Lock
+        self._force_unlocked = False # Remote Unlock (override night)
         self._http_client = httpx.AsyncClient(timeout=10.0)
 
         print(f"[Security] Night: {self.config['night_start_hour']}:00 → "
@@ -91,7 +92,7 @@ class SecurityService:
         """Phòng bị khóa nếu: khóa thủ công HOẶC ban đêm (auto)."""
         if self._room_locked:
             return True
-        if self.config.get("auto_lock_night", True) and self.is_night_mode():
+        if self.config.get("auto_lock_night", True) and self.is_night_mode() and not self._force_unlocked:
             return True
         return False
 
@@ -100,17 +101,19 @@ class SecurityService:
         """Trả về lý do khóa: 'manual', 'night', hoặc '' nếu không khóa."""
         if self._room_locked:
             return "manual"
-        if self.config.get("auto_lock_night", True) and self.is_night_mode():
+        if self.config.get("auto_lock_night", True) and self.is_night_mode() and not self._force_unlocked:
             return "night"
         return ""
 
     def lock_room(self):
         self._room_locked = True
+        self._force_unlocked = False
         print("[Security] 🔒 PHÒNG ĐÃ KHÓA (thủ công)")
 
     def unlock_room(self):
         self._room_locked = False
-        print("[Security] 🔓 PHÒNG ĐÃ MỞ KHÓA")
+        self._force_unlocked = True
+        print("[Security] 🔓 PHÒNG ĐÃ MỞ KHÓA (override ban đêm)")
 
     # ========================================
     # ACCESS EVENTS

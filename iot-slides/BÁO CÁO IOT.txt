@@ -1,4 +1,4 @@
-﻿
+
  
  
 DANH SÁCH NHÓM THAM GIA VIẾT BÁO CÁO
@@ -189,12 +189,15 @@ ra vào phòng thực hành tự động dựa trên công nghệ nhận diện 
 nền tảng Internet of Things (IoT) theo mô hình Client-Server.
 	Hệ thống được xây dựng trên vi điều khiển ESP32-S3-CAM N16R8 đóng vai 
 trò thiết bị đầu cuối, tích hợp camera OV3660 để thu thập hình ảnh khuôn mặt người 
-dùng và truyền lên server xử lý qua giao thức HTTP trong mạng LAN nội bộ. Tầng xử 
-lý trí tuệ nhân tạo được triển khai trên máy tính chạy Python Flask, sử dụng thư viện 
-face_recognition với mô hình học sâu ResNet-34 của dlib để thực hiện pipeline nhận 
-diện khuôn mặt. Kết quả xác thực được trả về thiết bị để điều khiển khóa chốt điện từ 
-JF-0826B thông qua module relay, đồng thời phản hồi trực quan qua màn hình LCD 
-1602 I2C và âm thanh qua còi buzzer.
+dùng và cung cấp ảnh cho server qua giao thức HTTP trong mạng LAN nội bộ. Tầng xử 
+lý trí tuệ nhân tạo được triển khai trên máy tính chạy FastAPI kết hợp ASGI server 
+Uvicorn, sử dụng kiến trúc Hybrid Model gồm YOLOv8 (phát hiện khuôn mặt), 
+MediaPipe (căn chỉnh landmarks) và FaceNet InceptionResnetV1 (trích xuất vector 
+đặc trưng 512 chiều) để thực hiện pipeline nhận diện khuôn mặt. Server chủ động gửi 
+yêu cầu HTTP GET đến ESP32-S3 để lấy ảnh, xử lý nhận diện và gửi lệnh điều khiển 
+ngược lại đến thiết bị để điều khiển khóa chốt điện từ JF-0826B thông qua module 
+relay, đồng thời phản hồi trực quan qua màn hình LCD 1602 I2C và âm thanh qua 
+còi buzzer.
 	Hệ thống mang lại một số ưu điểm nổi bật so với các phương thức kiểm soát 
 truy cập truyền thống. Việc xác thực danh tính dựa trên đặc điểm sinh trắc học giúp 
 loại bỏ hoàn toàn nguy cơ mất thẻ, sao chép thẻ hay lộ mã PIN. Kiến trúc Client-
@@ -312,13 +315,13 @@ diễn mà là một hệ thống có thể lắp đặt và sử dụng thực 
 2.4.1. Mục tiêu tổng quát
 	Xây dựng và vận hành thành công hệ thống kiểm soát ra vào tự động bằng 
 nhận diện khuôn mặt, sử dụng ESP32-S3-CAM N16R8 làm thiết bị đầu cuối và 
-Python Flask làm server xử lý, chứng minh tính khả thi của kiến trúc "thiết bị nhúng 
+FastAPI kết hợp Uvicorn làm server xử lý, chứng minh tính khả thi của kiến trúc "thiết bị nhúng 
 rẻ + server AI" trong bài toán bảo mật thực tiễn.
 2.4.2. Mục tiêu cụ thể
-	Lập trình ESP32-S3-CAM thu thập ảnh JPEG và truyền lên server qua HTTP 
-POST trong cùng mạng LAN.
-	Xây dựng server Python Flask với endpoint nhận diện khuôn mặt trả về kết quả 
-dạng JSON.
+	Lập trình ESP32-S3-CAM làm HTTP server cung cấp endpoint chụp ảnh JPEG, 
+điều khiển LCD, relay và buzzer trong cùng mạng LAN.
+	Xây dựng server FastAPI với hệ thống REST API và WebSocket, tích hợp 
+vòng lặp nhận diện liên tục và giao diện Dashboard giám sát thời gian thực.
 	Xây dựng cơ sở dữ liệu khuôn mặt (tối thiểu 5 người, 15–20 ảnh/người) và 
 công cụ đăng ký người dùng mới.
 	Điều khiển module relay kích hoạt khóa điện từ JF-0826B trong 3 giây khi 
@@ -334,9 +337,9 @@ kiện ánh sáng phòng bình thường.
 cứng, đề tài tập trung vào vi điều khiển ESP32-S3-CAM N16R8 với camera OV3660, 
 khóa điện từ JF-0826B và nguyên lý solenoid, module relay và cơ chế cách ly quang 
 (optocoupler), LCD 1602 và giao thức I2C. Về phần mềm, đề tài nghiên cứu lập trình 
-firmware Arduino cho ESP32-S3, thư viện face_recognition và mô hình dlib ResNet-
-34, framework Flask để xây dựng REST API, và giao tiếp HTTP giữa firmware và 
-server.
+firmware Arduino cho ESP32-S3, kiến trúc Hybrid Model gồm YOLOv8, MediaPipe 
+và FaceNet InceptionResnetV1, framework FastAPI để xây dựng REST API và 
+WebSocket, và giao tiếp HTTP giữa firmware và server.
 2.5.2. Phạm vi nghiên cứu được 
 	Về không gian, hệ thống hoạt động trong môi trường trong nhà (indoor), 
 khoảng cách nhận diện tối ưu 30–80 cm. Không thiết kế cho môi trường ngoài trời 
@@ -380,8 +383,27 @@ nền tảng được sử dụng.
 cứng, cơ sở dữ liệu, phần mềm và quá trình triển khai, kết quả thực nghiệm. 
 Phần 3 - Kết luận: Tổng kết các kết quả đạt được, nêu bật ưu nhược điểm của hệ thống 
 và đề xuất các hướng phát triển trong tương lai. 
-Tài liệu tham khảo: Liệt kê các nguồn tài liệu đã sử dụng.
-
+Tài liệu tham khảo:
+[1] Trần Văn Lăng (2020), Internet of Things – Từ kiến trúc đến ứng dụng, NXB Đại học Quốc gia TP.HCM.
+[2] Nguyễn Thanh Hải (2021), Giáo trình Vi điều khiển và Ứng dụng, NXB Khoa học và Kỹ thuật.
+[3] Phạm Ngọc Khôi (2019), Xử lý ảnh số và Thị giác máy tính, NXB Bách Khoa Hà Nội.
+[4] M. Turk and A. Pentland (1991), "Eigenfaces for Recognition," Journal of Cognitive Neuroscience, vol. 3, no. 1, pp. 71–86.
+[5] Y. Taigman, M. Yang, M. Ranzato, and L. Wolf (2014), "DeepFace: Closing the Gap to Human-Level Performance in Face Verification," IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 1701–1708.
+[6] F. Schroff, D. Kalenichenko, and J. Philbin (2015), "FaceNet: A Unified Embedding for Face Recognition and Clustering," IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 815–823.
+[7] J. Deng, J. Guo, N. Xue, and S. Zafeiriou (2019), "ArcFace: Additive Angular Margin Loss for Deep Face Recognition," IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), pp. 4690–4699.
+[8] J. Redmon, S. Divvala, R. Girshick, and A. Farhadi (2016), "You Only Look Once: Unified, Real-Time Object Detection," IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 779–788.
+[9] G. Jocher, A. Chaurasia, and J. Qiu (2023), Ultralytics YOLOv8, https://github.com/ultralytics/ultralytics.
+[10] K. Zhang, Z. Zhang, Z. Li, and Y. Qiao (2016), "Joint Face Detection and Alignment Using Multitask Cascaded Convolutional Networks," IEEE Signal Processing Letters, vol. 23, no. 10, pp. 1499–1503.
+[11] S. Ramírez (2018), FastAPI – Modern, fast web framework for building APIs with Python 3.7+, https://fastapi.tiangolo.com/.
+[12] Espressif Systems (2023), ESP32-S3 Series Datasheet, Version 1.3, https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf.
+[13] Espressif Systems (2023), ESP-IDF Programming Guide – Camera Driver, https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/.
+[14] Espressif Systems (2022), ESP-WHO: AI Development Framework for Espressif Chipsets, https://github.com/espressif/esp-who.
+[15] A. Géron (2022), Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 3rd Edition, O'Reilly Media.
+[16] A. Geitgey (2017), face_recognition: The world's simplest facial recognition API, https://github.com/ageitgey/face_recognition.
+[17] OpenCV Team (2023), OpenCV – Open Source Computer Vision Library, https://opencv.org/.
+[18] SQLAlchemy Authors (2023), SQLAlchemy – The Python SQL Toolkit and Object Relational Mapper, https://www.sqlalchemy.org/.
+[19] C. Lugaresi et al. (2019), "MediaPipe: A Framework for Building Perception Pipelines," Workshop on Computer Vision for AR/VR at CVPR 2019.
+[20] Verizon (2023), 2023 Data Breach Investigations Report (DBIR), https://www.verizon.com/business/resources/reports/dbir/.
 
 
 PHẦN 2: PHẦN NỘI DUNG
@@ -453,54 +475,60 @@ cao hơn
 	Kiến trúc tổng thể bao gồm các khối chức năng chính tương tác chặt chẽ với 
 nhau để thực hiện nhiệm vụ xác thực danh tính và kiểm soát truy cập một cách tự 
 động, chính xác và an toàn.
-	Khối Xử lý Trung tâm (Client) sử dụng module vi điều khiển ESP32-S3-CAM 
+	Khối Xử lý Trung tâm sử dụng module vi điều khiển ESP32-S3-CAM 
 N16R8 tích hợp 16MB Flash và 8MB PSRAM, đóng vai trò là "bộ não" phần cứng 
-của hệ thống tại cửa. Khối này chịu trách nhiệm thu thập hình ảnh khuôn mặt từ 
-camera tích hợp OV2640, đóng gói ảnh JPEG và chủ động gửi lên AI Server qua 
-HTTP POST khi người dùng kích hoạt, nhận kết quả xác thực phản hồi dạng JSON và 
-trực tiếp điều khiển các khối chấp hành và hiển thị tương ứng.
-	Khối Đầu vào (Input) bao gồm các thành phần thu thập dữ liệu và kích hoạt hệ 
-thống camera OV3660 tích hợp trên ESP32-S3-CAM, thu thập hình ảnh khuôn mặt 
-người dùng ở độ phân giải QVGA (320×240) với định dạng JPEG nén (kích thước 
-~10–25KB), cân bằng giữa chất lượng ảnh đủ để nhận diện và tốc độ truyền tải qua 
-Wi-Fi. Nút nhấn vật lý kích hoạt chu trình nhận diện khi người dùng đến cửa, đồng 
-thời có thể bố trí nút mở cửa thủ công bên trong phòng lab để ra vào không cần xác 
-thực.
-	Khối Chấp hành (Output) thực thi lệnh đóng/mở cửa sau khi nhận kết quả xác 
-thực từ server, bao gồm Module Relay 5V (1 kênh) đóng vai trò công tắc điện tử, nhận 
-tín hiệu điều khiển từ GPIO 12 của ESP32-S3 để đóng/ngắt dòng điện 12V cấp cho 
-khóa điện từ, cách ly hoàn toàn mạch điều khiển 3.3V với mạch tải 12V thông qua 
-optocoupler PC817 tích hợp. Relay hoạt động theo cơ chế định thời - tự động ngắt sau 
-3 giây kể từ khi kích hoạt mà không block luồng xử lý chính. Khóa chốt điện từ JF-
-0826B (12V) là cơ cấu khóa vật lý được điều khiển bởi relay, hoạt động theo nguyên 
-lý solenoid với đặc tính Fail-Secure — tự động chốt lại khi mất điện, đảm bảo phòng 
-lab luôn được bảo vệ trong mọi tình huống sự cố.
+của hệ thống tại cửa. ESP32-S3 hoạt động như một HTTP server, cung cấp các 
+endpoint để server Python truy vấn ảnh (GET /capture, GET /stream) và nhận lệnh 
+điều khiển (POST /lcd, POST /relay, POST /buzzer). Khối này chịu trách nhiệm thu 
+thập hình ảnh khuôn mặt từ camera tích hợp OV3660, cung cấp ảnh JPEG cho server 
+khi được yêu cầu, nhận lệnh điều khiển từ server và trực tiếp điều khiển các khối 
+chấp hành và hiển thị tương ứng.
+	Khối Đầu vào (Input) bao gồm các thành phần thu thập dữ liệu: camera 
+OV3660 tích hợp trên ESP32-S3-CAM, thu thập hình ảnh khuôn mặt người dùng ở 
+độ phân giải VGA (640×480) với định dạng JPEG nén, cân bằng giữa chất lượng ảnh 
+đủ để nhận diện và tốc độ truyền tải qua Wi-Fi. Hệ thống hoạt động theo cơ chế nhận 
+diện liên tục — server chủ động gọi endpoint /capture trên ESP32-S3 để lấy frame 
+ảnh mỗi 0.5 giây, không cần người dùng nhấn nút kích hoạt.
+	Khối Chấp hành (Output) thực thi lệnh đóng/mở cửa sau khi nhận lệnh điều 
+khiển từ server qua HTTP POST, bao gồm Module Relay (1 kênh) đóng vai trò công 
+tắc điện tử, nhận tín hiệu điều khiển từ GPIO 3 của ESP32-S3 để đóng/ngắt dòng 
+điện 12V cấp cho khóa điện từ, cách ly hoàn toàn mạch điều khiển 3.3V với mạch tải 
+12V thông qua optocoupler PC817 tích hợp. Relay hoạt động theo cơ chế định thời 
+(non-blocking) - tự động ngắt sau 3 giây kể từ khi kích hoạt mà không block luồng 
+xử lý chính. Khóa chốt điện từ JF-0826B (12V) là cơ cấu khóa vật lý được điều 
+khiển bởi relay, hoạt động theo nguyên lý solenoid với đặc tính Fail-Secure — tự 
+động chốt lại khi mất điện, đảm bảo phòng lab luôn được bảo vệ trong mọi tình 
+huống sự cố.
 	Khối Server (Server-side) hoạt động trên máy tính trong mạng LAN nội bộ 
-phòng lab, bao gồm: AI Server (Python Flask) lắng nghe trên port 5000, nhận ảnh 
-JPEG từ ESP32-S3 qua HTTP POST endpoint /recognize và trả kết quả nhận diện 
-dạng JSON về thiết bị. Application Logic sử dụng thư viện face_recognition dựa trên 
-mô hình ResNet-34 của dlib, thực hiện pipeline hai bước: (1) phát hiện vị trí khuôn 
-mặt trong ảnh bằng HOG detector, (2) trích xuất vector embedding 128 chiều và so 
-khớp với cơ sở dữ liệu bằng khoảng cách Euclidean với ngưỡng tolerance 0.5. Cơ sở 
-dữ liệu khuôn mặt (encodings.pkl) lưu trữ danh sách vector embedding 128-D, mỗi 
-người có 15–20 encoding từ nhiều góc và biểu cảm khác nhau để tăng độ bao phủ 
-nhận diện. Nhật ký truy cập (access_log.csv) ghi lại lịch sử ra vào gồm tên người 
-dùng, thời gian và kết quả xác thực sau mỗi lần hệ thống hoạt động.
+phòng lab, bao gồm: AI Server chạy trên nền tảng FastAPI kết hợp ASGI server 
+Uvicorn, lắng nghe trên port 8000. Server chủ động gửi HTTP GET đến ESP32-S3 
+endpoint /capture để lấy frame ảnh, xử lý nhận diện và gửi HTTP POST ngược lại 
+đến ESP32-S3 để điều khiển LCD, relay và buzzer. Application Logic sử dụng kiến 
+trúc Hybrid Model ba giai đoạn: (1) phát hiện vị trí khuôn mặt bằng YOLOv8 Nano, 
+(2) căn chỉnh khuôn mặt bằng MTCNN và trích xuất vector embedding 512 chiều 
+bằng FaceNet InceptionResnetV1, (3) so khớp với cơ sở dữ liệu bằng công thức 
+Hybrid Metric kết hợp 70% Cosine Similarity và 30% L2 Distance với ngưỡng 0.80. 
+Cơ sở dữ liệu người dùng sử dụng SQLite (thông qua SQLAlchemy ORM), lưu trữ 
+thông tin người dùng và vector embedding 512-D, mỗi người có 5–20 embedding từ 
+nhiều góc và biểu cảm khác nhau để tăng độ bao phủ nhận diện. Nhật ký điểm danh 
+(bảng AttendanceLog) ghi lại lịch sử ra vào gồm tên người dùng, MSSV, thời gian, 
+trạng thái và độ tin cậy sau mỗi lần hệ thống hoạt động.
 	Khối Giao tiếp mạng sử dụng module Wi-Fi 802.11 b/g/n (2.4 GHz) tích hợp 
 sẵn trên ESP32-S3 để kết nối thiết bị với mạng LAN nội bộ phòng lab. ESP32-S3 
-đóng vai trò HTTP client — gửi ảnh JPEG thô qua HTTP POST với header Content-
-Type: image/jpeg và chờ phản hồi JSON từ server. Phía server, mọi kết quả xử lý 
-được trả về ngay trong cùng một response để giảm tối đa độ trễ, đảm bảo tổng thời 
-gian từ khi gửi ảnh đến khi nhận kết quả không vượt quá 500ms trong điều kiện mạng 
-LAN ổn định.
+đóng vai trò HTTP server — cung cấp ảnh JPEG qua endpoint GET /capture và nhận 
+lệnh điều khiển qua POST /lcd, POST /relay, POST /buzzer. Phía server Python chủ 
+động gọi ESP32-S3 để lấy ảnh, xử lý nhận diện trong thread pool và gửi lệnh điều 
+khiển ngược lại. Ngoài giao tiếp HTTP, server còn cung cấp kênh WebSocket cho 
+Dashboard để đẩy sự kiện thời gian thực (điểm danh, cảnh báo an ninh, trạng thái 
+khóa phòng) đến trình duyệt mà không cần polling.
 	Khối Hiển thị (Display) sử dụng màn hình LCD 1602 tích hợp module I2C 
-(PCF8574), giao tiếp với ESP32-S3 qua 2 dây SDA (GPIO 8) và SCL (GPIO 9) với 
-tốc độ I2C 100kHz. LCD đóng vai trò giao diện phản hồi trực quan duy nhất tại cửa 
-— hiển thị trạng thái "SAN SANG / Nhan nut..." khi chờ, tên người dùng ở hàng trên 
-và thông báo "CHAO MUNG!" ở hàng dưới khi nhận diện thành công, hoặc 
-"KHONG NHAN RA / TRUY CAP BI TU CHOI" khi từ chối. Nội dung LCD được 
-cập nhật ngay lập tức sau mỗi kết quả xác thực nhằm phản hồi tức thì cho người dùng 
-đứng trước cửa.
+(PCF8574), giao tiếp với ESP32-S3 qua 2 dây SDA (GPIO 1) và SCL (GPIO 2) với 
+tốc độ I2C 50kHz. LCD đóng vai trò giao diện phản hồi trực quan duy nhất tại cửa 
+— hiển thị trạng thái "SMART ATTEND / Scan face..." khi chờ, tên người dùng ở 
+hàng trên và MSSV ở hàng dưới khi nhận diện thành công, hoặc "UNKNOWN / 
+ACCESS DENY" khi từ chối. Nội dung LCD được cập nhật ngay lập tức khi server 
+gửi lệnh POST /lcd đến ESP32-S3 nhằm phản hồi tức thì cho người dùng đứng 
+trước cửa.
 	Khối Nguồn cung cấp năng lượng ổn định cho toàn bộ hệ thống, bao gồm 
 Adapter 12V – 2A (24W) làm nguồn cấp chính với biên độ dự phòng hơn 2.5 lần so 
 với mức tiêu thụ thực tế (~9W). Module Buck Converter hạ áp từ 12V xuống 5V ổn 
@@ -516,15 +544,15 @@ kiểm soát ra vào vật lý.
 	ESP32-S3-CAM N16R8 là vi điều khiển trung tâm của hệ thống tại cửa, được 
 lựa chọn nhờ tích hợp sẵn camera, Wi-Fi 802.11 b/g/n, bộ nhớ PSRAM 8MB đủ lớn 
 để xử lý dữ liệu ảnh, cùng khả năng lập trình linh hoạt qua Arduino IDE. ESP32-S3-
-CAM nhận tín hiệu kích hoạt từ nút nhấn, điều khiển camera OV3660 chụp ảnh khuôn 
-mặt, truyền dữ liệu lên server qua Wi-Fi, nhận kết quả xác thực phản hồi và xuất tín 
-hiệu điều khiển đến relay và LCD. Đây là thành phần duy nhất kết nối trực tiếp với tất 
-cả các khối chức năng còn lại trong hệ thống.
-	Camera OV3660 là cảm biến hình ảnh CMOS 2 Megapixel tích hợp sẵn trên 
+CAM hoạt động như HTTP server, cung cấp endpoint chụp ảnh (GET /capture), luồng 
+video (GET /stream) và nhận lệnh điều khiển từ server Python (POST /lcd, POST 
+/relay, POST /buzzer). Đây là thành phần duy nhất kết nối trực tiếp với tất cả 
+các khối chức năng còn lại trong hệ thống.
+	Camera OV3660 là cảm biến hình ảnh CMOS 3 Megapixel tích hợp sẵn trên 
 module ESP32-S3-CAM, giao tiếp với vi điều khiển qua giao diện DVP 8-bit song 
-song. Camera được cấu hình hoạt động ở độ phân giải QVGA (320×240) với định 
-dạng xuất JPEG, cân bằng giữa chất lượng ảnh đủ để nhận diện khuôn mặt và kích 
-thước file nhỏ gọn (10–25KB) phù hợp với tốc độ truyền tải qua Wi-Fi.
+song. Camera được cấu hình hoạt động ở độ phân giải VGA (640×480) với định dạng 
+xuất JPEG (chất lượng 12), sử dụng chế độ CAMERA_GRAB_LATEST với double 
+buffering trên PSRAM để luôn lấy được frame mới nhất.
 	Khóa chốt điện từ JF-0826B (12V) là cơ cấu chấp hành chính, thực hiện việc 
 khóa và mở cửa vật lý. Khóa hoạt động theo nguyên lý solenoid điện từ - khi được cấp 
 điện 12V, cuộn dây sinh ra từ trường hút chốt sắt vào trong giải phóng cửa; khi mất 
@@ -550,24 +578,26 @@ phần cứng tại cửa. Từ nguồn 12V, điện được phân phối thàn
 CAM, module relay và LCD 1602. Công suất đầu ra 24W đảm bảo biên độ dự phòng 
 hơn 2.5 lần so với mức tiêu thụ thực tế của hệ thống (~9W), tránh sụt áp khi tất cả linh 
 kiện hoạt động đồng thời.
-	Server Python Flask là thành phần xử lý trí tuệ nhân tạo của hệ thống, hoạt 
-động trên máy tính trong mạng LAN nội bộ phòng lab. Server tiếp nhận ảnh JPEG từ 
-ESP32-S3 qua HTTP POST, thực hiện pipeline nhận diện khuôn mặt sử dụng thư viện 
-face_recognition với mô hình ResNet-34 của dlib, so khớp vector embedding 128 
-chiều với cơ sở dữ liệu và trả kết quả JSON về thiết bị. Việc tách biệt tầng xử lý AI ra 
-khỏi thiết bị nhúng cho phép sử dụng mô hình nhận diện đầy đủ độ chính xác mà 
-không bị giới hạn bởi tài nguyên của vi điều khiển.
-	Cơ Sở Dữ Liệu Khuôn Mặt (encodings.pkl) được lưu trữ dưới dạng file nhị 
-phân Pickle trên máy tính chạy server, chứa danh sách các vector encoding 128 chiều 
-tương ứng với từng người dùng đã đăng ký. Mỗi người được đại diện bởi 15–20 
-encoding trích xuất từ ảnh chụp ở nhiều góc độ và biểu cảm khác nhau, giúp tăng độ 
-bao phủ và tính ổn định của nhận diện trong điều kiện thực tế. File này được tải vào 
-bộ nhớ RAM khi server khởi động để tối ưu tốc độ truy vấn.
-	Nhật Ký Truy Cập (access_log.csv) ghi lại toàn bộ lịch sử ra vào phòng lab 
-gồm tên người dùng, thời gian và kết quả xác thực sau mỗi lần hệ thống hoạt động. 
-File CSV được lưu trên máy tính server, dễ dàng truy xuất và phân tích bằng các công 
-cụ phổ thông như Microsoft Excel hoặc Python pandas, phục vụ công tác quản lý và 
-truy vết khi cần thiết.
+	Server FastAPI là thành phần xử lý trí tuệ nhân tạo của hệ thống, hoạt 
+động trên máy tính trong mạng LAN nội bộ phòng lab. Server chủ động gửi HTTP 
+GET đến ESP32-S3 để lấy ảnh JPEG, thực hiện pipeline nhận diện khuôn mặt sử 
+dụng kiến trúc Hybrid Model gồm YOLOv8 (phát hiện), MTCNN (căn chỉnh) và 
+FaceNet InceptionResnetV1 (trích xuất vector embedding 512 chiều), so khớp với 
+cơ sở dữ liệu bằng công thức Hybrid Metric và gửi lệnh điều khiển ngược lại đến 
+ESP32-S3. Việc tách biệt tầng xử lý AI ra khỏi thiết bị nhúng cho phép sử dụng 
+mô hình nhận diện đầy đủ độ chính xác mà không bị giới hạn bởi tài nguyên của 
+vi điều khiển.
+	Cơ Sở Dữ Liệu Người Dùng sờ dụng SQLite thông qua SQLAlchemy ORM, 
+lưu trữ thông tin người dùng (họ tên, MSSV) và các vector embedding 512 chiều 
+tương ứng. Mỗi người được đại diện bởi 5–20 embedding trích xuất từ ảnh chụp ở 
+nhiều góc độ và biểu cảm khác nhau, giúp tăng độ bao phủ và tính ổn định của 
+nhận diện trong điều kiện thực tế. Khi server khởi động, hệ thống tính vector 
+trung bình (mean embedding) cho mỗi người dùng và cache vào RAM để tối ưu 
+tốc độ truy vấn.
+	Nhật Ký Điểm Danh (bảng AttendanceLog trong SQLite) ghi lại toàn bộ lịch 
+sử ra vào phòng lab gồm tên người dùng, MSSV, thời gian, trạng thái (GRANTED/
+DENIED) và độ tin cậy sau mỗi lần hệ thống hoạt động. Dữ liệu được truy vấn qua 
+REST API và hiển thị trên Dashboard thời gian thực qua WebSocket.
  
 CHƯƠNG 2: PHÂN TÍCH YÊU CẦU
 2.1. Đặt Vấn Đề Yêu Cầu
@@ -839,62 +869,65 @@ kiện thực tế.
 2.5.1. Khởi tạo hệ thống
 	Khi được cấp nguồn, ESP32-S3-CAM thực hiện tuần tự các bước khởi tạo: kết 
 nối mạng Wi-Fi 2.4 GHz theo cấu hình đã nạp trong firmware, khởi tạo camera 
-OV3660 ở chế độ JPEG với độ phân giải QVGA (320×240), khởi tạo giao tiếp I2C 
-với LCD 1602 và thiết lập chân GPIO điều khiển relay. Sau khi khởi tạo hoàn tất, 
-LCD hiển thị trạng thái chờ "SAN SANG / Nhan nut..." báo hiệu hệ thống sẵn sàng 
-hoạt động.
-	Song song trên máy tính trong cùng mạng LAN, server Python Flask khởi động 
-trên cổng 5000, nạp cơ sở dữ liệu khuôn mặt từ file encodings.pkl vào bộ nhớ và bắt 
-đầu lắng nghe các kết nối đến từ ESP32-S3.
+OV3660 ở chế độ JPEG với độ phân giải VGA (640×480), khởi tạo giao tiếp I2C 
+(tốc độ 50kHz) với LCD 1602 và thiết lập chân GPIO điều khiển relay và buzzer. 
+Sau khi khởi tạo hoàn tất, LCD hiển thị trạng thái chờ "SMART ATTEND / Scan 
+face..." báo hiệu hệ thống sẵn sàng hoạt động. ESP32-S3 khởi động hai HTTP 
+server: port 80 cho các endpoint chốt (điều khiển + chụp ảnh) và port 81 cho 
+luồng MJPEG stream.
+	Song song trên máy tính trong cùng mạng LAN, server FastAPI khởi động 
+trên cổng 8000, nạp cơ sở dữ liệu người dùng từ SQLite vào bộ nhớ cache, khởi 
+tạo các model AI (YOLOv8, MediaPipe, FaceNet) và bắt đầu vòng lặp nhận diện 
+liên tục (recognition loop).
 2.5.2. Thu thập hình ảnh
-	Khi người dùng nhấn nút kích hoạt, ESP32-S3 điều khiển camera OV3660 
-chụp một frame ảnh định dạng JPEG với kích thước khoảng 10 – 25KB. Ảnh được 
-đóng gói và truyền lên server qua giao thức HTTP POST đến endpoint /recognize với 
-header Content-Type: image/jpeg. Trong thời gian chờ phản hồi, LCD cập nhật nội 
-dung hiển thị "DANG XU LY..." để thông báo cho người dùng biết hệ thống đang xử 
-lý.
+	Hệ thống hoạt động theo cơ chế nhận diện liên tục: server chủ động gửi HTTP 
+GET đến endpoint /capture trên ESP32-S3 mỗi 0.5 giây để lấy frame ảnh JPEG. 
+Không yêu cầu người dùng nhấn nút kích hoạt — camera luôn sẵn sàng cung cấp 
+ảnh khi được server yêu cầu.
 2.5.3. Xử lý nhận diện khuôn mặt
-	Server Python nhận ảnh JPEG, giải mã thành mảng numpy và đưa vào pipeline 
-nhận diện khuôn mặt gồm hai bước:
-	Bước 1 — Phát hiện khuôn mặt: Thư viện face_recognition sử dụng bộ phát 
-hiện HOG (Histogram of Oriented Gradients) kết hợp SVM để xác định vị trí khuôn 
-mặt trong ảnh, trả về tọa độ bounding box (top, right, bottom, left). Nếu không phát 
-hiện được khuôn mặt nào, server trả về phản hồi {"name": "no_face_detected"} và kết 
-thúc sớm.
-	Bước 2 — Nhận diện danh tính: Với mỗi khuôn mặt phát hiện được, mô hình 
-ResNet-34 của dlib trích xuất vector embedding 128 chiều đặc trưng cho khuôn mặt 
-đó. Vector này được so sánh với toàn bộ encoding trong cơ sở dữ liệu thông qua 
-khoảng cách Euclidean. Nếu khoảng cách nhỏ nhất tìm được nhỏ hơn ngưỡng 
-tolerance 0.5, hệ thống xác định danh tính người dùng tương ứng và trả về {"name": 
-"Tên người dùng"}. Ngược lại, kết quả trả về là {"name": "unknown"}.
+	Server nhận ảnh JPEG, giải mã thành mảng numpy và đưa vào pipeline 
+nhận diện khuôn mặt ba giai đoạn (chạy trong thread pool để không block event loop):
+	Giai đoạn 1 — Phát hiện khuôn mặt: YOLOv8 Nano phát hiện vị trí khuôn 
+mặt trong ảnh, trả về tọa độ bounding box (x1, y1, x2, y2) và độ tin cậy. Nếu 
+không phát hiện được khuôn mặt nào, server bỏ qua frame và chờ frame tiếp theo.
+	Giai đoạn 2 — Căn chỉnh và trích xuất embedding: Với mỗi khuôn mặt phát 
+hiện được, hình ảnh được cắt và đưa qua MTCNN để căn chỉnh, sau đó mô hình 
+FaceNet InceptionResnetV1 trích xuất vector embedding 512 chiều đặc trưng 
+cho khuôn mặt đó. Vector được chuẩn hóa (L2 normalization) trước khi so khớp.
+	Giai đoạn 3 — Nhận diện danh tính: Vector embedding được so sánh với 
+vector trung bình của từng người dùng trong cache bằng công thức Hybrid Metric: 
+combined = 0.7 × Cosine Similarity + 0.3 × max(0, 1 - L2/2.0). Nếu điểm cao 
+nhất vượt ngưỡng 0.80, hệ thống xác định danh tính. Kết quả còn được làm mượt qua 
+Recognition Buffer (đếm số lần nhận diện thành công liên tiếp để tránh nhận nhầm).
 2.5.4. Phản hồi và điều khiển
-	ESP32-S3 nhận kết quả JSON từ server và xử lý theo hai nhánh:
-	Trường hợp nhận diện thành công (Authorized): ESP32-S3 xuất tín hiệu HIGH 
-lên GPIO 12, kích hoạt relay đóng mạch tiếp điểm COM–NO, cấp điện 12V cho cuộn 
-dây solenoid của khóa JF-0826B — chốt khóa thu vào và cửa mở. LCD cập nhật nội 
-dung hiển thị "CHAO MUNG! / [Tên người dùng]" để phản hồi trực quan cho người 
-dùng. Sau 3 giây, ESP32-S3 tự động ngắt tín hiệu GPIO về LOW, relay mở tiếp điểm, 
-lò xo trong khóa JF-0826B đẩy chốt trở về vị trí khóa. Đồng thời, server ghi một bản 
-ghi vào file access_log.csv gồm tên người dùng, thời gian và kết quả SUCCESS.
+	Server xử lý kết quả nhận diện và gửi lệnh điều khiển đến ESP32-S3:
+	Trường hợp nhận diện thành công (Authorized): Server gửi POST /relay 
+(action=open, duration=3) để kích hoạt relay qua GPIO 3, cấp điện 12V cho cuộn 
+dây solenoid của khóa JF-0826B — chốt khóa thu vào và cửa mở. Đồng thời, 
+server gửi POST /lcd với nội dung "[Tên người dùng] / [MSSV]" và POST 
+/buzzer với pattern "ok" (1 beep ngắn 200ms). Sau 3 giây, relay tự động ngắt 
+(non-blocking), lò xo trong khóa JF-0826B đẩy chốt trở về vị trí khóa. Server 
+ghi bản ghi điểm danh vào bảng AttendanceLog (SQLite) và broadcast sự kiện qua 
+WebSocket đến Dashboard.
 	Trường hợp không nhận diện được (Unauthorized): Relay giữ nguyên trạng 
-thái OFF, khóa điện từ không được cấp điện, cửa tiếp tục ở trạng thái khóa. LCD hiển 
-thị "KHONG NHAN RA / TRUY CAP BI TU CHOI" trong 3 giây rồi trở về màn 
-hình chờ. Server ghi log kết quả FAILED kèm timestamp để phục vụ truy vết sau này.
+thái OFF, khóa điện từ không được cấp điện, cửa tiếp tục ở trạng thái khóa. Server 
+gửi POST /lcd với nội dung "UNKNOWN / ACCESS DENY" và POST /buzzer 
+với pattern "error" (2 beep dài 300ms). Server ghi log trạng thái DENIED và 
+broadcast cảnh báo an ninh qua WebSocket. Nếu số lần từ chối liên tiếp vượt 
+ngưỡng (mặc định 2 lần), SecurityManager gửi cảnh báo qua Telegram và kích 
+hoạt buzzer alarm liên tục trong 30 giây.
 2.5.5. Chế độ đăng ký người dùng mới
-	Khi cần bổ sung người dùng vào hệ thống, quản trị viên thực hiện trực tiếp trên 
-máy tính chạy server mà không cần can thiệp vào phần cứng tại cửa. Quy trình gồm 
-ba bước:
-	Bước 1 - Chuẩn bị ảnh: Chụp 15 – 20 ảnh khuôn mặt của người cần đăng ký ở 
-các góc độ và biểu cảm khác nhau (nhìn thẳng, nghiêng trái, nghiêng phải, biểu cảm 
-tự nhiên). Toàn bộ ảnh được đặt vào thư mục dataset/TenNguoiDung/.
-	Bước 2 - Trích xuất và lưu encoding: Chạy script enroll.py. Script tự động 
-duyệt qua từng ảnh trong thư mục, gọi face_recognition.face_encodings() để trích xuất 
-vector 128 chiều từ mỗi ảnh hợp lệ và lưu toàn bộ vào file encodings.pkl kèm tên 
-người dùng tương ứng. Các ảnh không phát hiện được khuôn mặt sẽ được bỏ qua và 
-ghi nhận trong log.
-	Bước 3 - Xác nhận: Gọi endpoint GET /status để kiểm tra tổng số người và 
-encoding đã đăng ký. Từ lần nhận diện tiếp theo, server tự động nhận ra người vừa 
-được thêm mà không cần khởi động lại bất kỳ thành phần nào trong hệ thống.
+	Hệ thống hỗ trợ hai cách đăng ký người dùng mới:
+	Cách 1 - Qua Web Dashboard: Quản trị viên truy cập giao diện web trên 
+port 8000, tạo người dùng mới (POST /api/users) với họ tên và MSSV, sau đó 
+nhấn Enroll (POST /api/users/{id}/enroll) để server tự chụp ảnh từ camera 
+và trích xuất embedding. Mỗi lần enroll chụp 1 ảnh, cần lặp lại 5–20 lần để tăng 
+độ chính xác.
+	Cách 2 - Qua dòng lệnh: Chạy script main.py với tham số --enroll, hệ 
+thống sẽ chụp liên tục 20 frame khuôn mặt và trích xuất embedding tự động.
+	Từ lần nhận diện tiếp theo, server tự động nhận ra người vừa được thêm 
+mà không cần khởi động lại bất kỳ thành phần nào trong hệ thống nhờ cơ chế 
+invalidate cache.
  
 CHƯƠNG 3 : CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ LIÊN QUAN
 	Hệ thống được thiết kế theo kiến trúc hai tầng phân tách rõ ràng giữa tầng thiết 
@@ -1023,16 +1056,16 @@ hiệu để điều khiển, module chỉ yêu cầu đúng 2 dây dữ liệu 
 tích hợp sẵn ở mặt sau đóng vai trò bộ mở rộng I/O, nhận lệnh qua I2C và chuyển đổi 
 thành tín hiệu song song 8-bit để điều khiển LCD.
 	Về khả năng hiển thị, 32 ký tự chia thành 2 hàng cho phép thiết kế giao diện 
-phản hồi rõ ràng và trực quan: hàng đầu tiên dùng để hiển thị trạng thái hệ thống 
-("DANG XU LY...", "CHAO MUNG!", "TU CHOI TRUY CAP"), hàng thứ hai hiển 
-thị tên người dùng được nhận diện hoặc thông báo bổ sung. Đèn nền LED xanh lam 
-có thể tắt bật bằng phần mềm, cho phép tạo hiệu ứng nhấp nháy để thu hút sự chú ý 
-khi cần cảnh báo.
+phản hồi rõ ràng và trực quan: hàng đầu tiên dùng để hiển thị tên người dùng hoặc 
+trạng thái hệ thống ("SMART ATTEND", "UNKNOWN"), hàng thứ hai hiển thị 
+MSSV khi nhận diện thành công hoặc "Scan face..." khi chờ, "ACCESS DENY" khi 
+từ chối. Đèn nền LED xanh lam có thể tắt bật bằng phần mềm, cho phép tạo 
+hiệu ứng nhấp nháy để thu hút sự chú ý khi cần cảnh báo.
 	Trong hệ thống này, LCD 1602 là kênh phản hồi trực tiếp duy nhất giữa hệ 
 thống và người dùng đứng trước cửa. Mọi kết quả từ quá trình nhận diện - thành công 
-hay thất bại - đều được ESP32-S3 cập nhật lên màn hình ngay lập tức thông qua giao 
-tiếp I2C trên chân GPIO 8 (SDA) và GPIO 9 (SCL), giúp người dùng nắm được trạng 
-thái hệ thống mà không cần quan sát bất kỳ thiết bị nào khác.
+thái hệ thống mà không cần quan sát bất kỳ thiết bị nào khác. Nội dung LCD được 
+cập nhật khi server gửi lệnh POST /lcd đến ESP32-S3 qua giao tiếp I2C trên chân 
+GPIO 1 (SDA) và GPIO 2 (SCL) với tốc độ 50kHz.
 3.2.3.2. Giao Thức I2C
 	I2C (Inter-Integrated Circuit) là giao thức truyền thông nối tiếp đồng bộ do 
 Philips Semiconductors phát triển, được thiết kế để kết nối nhiều thiết bị ngoại vi với 
@@ -1056,7 +1089,8 @@ mắc từ mỗi đường SDA và SCL về VCC để đảm bảo bus luôn ở
 không có thiết bị nào đang truyền.
 	I2C được sử dụng để kết nối ESP32-S3-CAM với màn hình LCD 1602 thông 
 qua chip mở rộng I/O PCF8574 tích hợp sẵn trên module. Địa chỉ I2C của module là 
-0x27, tốc độ bus được cấu hình ở 100 kHz (Standard Mode). 
+0x27, tốc độ bus được cấu hình ở 50 kHz (được hạ từ 100kHz xuống để chống nhiễu 
+font chữ trên dây dài). 
 Chân ESP32
 Chân LCD 1602 I2C
 GPIO 1
@@ -1085,9 +1119,7 @@ Dòng tiêu thụ
 Khối lượng
 50g
 Cơ chế hoạt động
-HD44780 cho điều khiển LCD
-Màu hiển thị LCD 1602
-Đèn nền xanh dương
+Solenoid điện từ (Fail-Secure)
 Kiểu giao tiếp
 Nhấn - Kéo - Đẩy bằng lực điện từ (Solenoid)
 
@@ -1386,12 +1418,15 @@ GND chung.
 	Buzzer sử dụng loại active - có bộ dao động tích hợp bên trong, chỉ cần cấp 
 điện áp DC là phát âm thanh mà không cần tín hiệu PWM từ vi điều khiển. Khi GPIO 
 14 xuất mức HIGH, dòng điện chạy qua điện trở hạn dòng kích hoạt buzzer phát tiếng. 
-Firmware định nghĩa ba pattern âm thanh khác nhau:
-	Một tiếng beep ngắn (200ms): Nhận diện khuôn mặt thành công, cửa mở.
-	Hai tiếng beep dài (300ms ON – 100ms OFF – 300ms ON): Từ chối truy cập, 
-khuôn mặt không có trong cơ sở dữ liệu.
-	Ba tiếng beep ngắn liên tiếp: Lỗi kết nối server hoặc không phát hiện khuôn 
-mặt trong ảnh.
+Firmware định nghĩa bốn pattern âm thanh khác nhau:
+	Pattern "ok" — Một tiếng beep ngắn (200ms): Nhận diện khuôn mặt thành 
+công, cửa mở.
+	Pattern "error" — Hai tiếng beep dài (300ms ON – 100ms OFF – 300ms ON): 
+Từ chối truy cập, khuôn mặt không có trong cơ sở dữ liệu.
+	Pattern "enroll" — Ba tiếng beep ngắn liên tiếp (100ms ON – 50ms OFF × 3): 
+Hoàn thành thu thập 1 frame khuôn mặt trong chế độ đăng ký.
+	Pattern "alarm" — Chuỗi beep dài lặp lại liên tục (800ms ON – 200ms OFF): 
+Cảnh báo an ninh khi số lần từ chối liên tiếp vượt ngưỡng, tự động tắt sau 30 giây.
 4.1.3. Hình ảnh lắp ráp mô hình thực tế
 	Sau khi hoàn thiện sơ đồ nguyên lý và xác định đầy đủ các kết nối phần cứng, 
 nhóm tiến hành lắp ráp hệ thống trên thực tế. Các linh kiện được đấu nối theo đúng sơ 
@@ -1764,9 +1799,3 @@ thông báo đẩy (Push Notification) tức thời, cho phép quản lý từ x
 	Xây dựng cơ chế xác thực đa nhân tố (MFA): Tích hợp thêm các phương thức 
 dự phòng như RFID hoặc vân tay ngay tại biên (Edge), đảm bảo hệ thống vẫn vận 
 hành ổn định trong tình huống gián đoạn kết nối Server.
-
-
-
-
-1
-

@@ -24,7 +24,7 @@ KÍ TÊN
 
 2
 Lý Gia Hân
-24131016
+24133016
 
 
 3
@@ -110,7 +110,7 @@ CHƯƠNG 3 : CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ LIÊN QUAN	22
 3.2.1. Giới thiệu về Module ESP32 CAM	22
 3.2.2. Module Relay	24
 3.2.3. Màn hình LCD 1602 tích hợp I2C	25
-3.1.3.1. Thông số kỹ thuật	25
+3.2.3.1. Thông số kỹ thuật	25
 3.2.3.2. Giao Thức I2C	26
 3.2.4. Khóa chốt điện từ JF-0826B 12V	27
 3.2.5. Adapter 12V	28
@@ -587,7 +587,7 @@ cơ sở dữ liệu bằng công thức Hybrid Metric và gửi lệnh điều 
 ESP32-S3. Việc tách biệt tầng xử lý AI ra khỏi thiết bị nhúng cho phép sử dụng 
 mô hình nhận diện đầy đủ độ chính xác mà không bị giới hạn bởi tài nguyên của 
 vi điều khiển.
-	Cơ Sở Dữ Liệu Người Dùng sờ dụng SQLite thông qua SQLAlchemy ORM, 
+	Cơ Sở Dữ Liệu Người Dùng sử dụng SQLite thông qua SQLAlchemy ORM, 
 lưu trữ thông tin người dùng (họ tên, MSSV) và các vector embedding 512 chiều 
 tương ứng. Mỗi người được đại diện bởi 5–20 embedding trích xuất từ ảnh chụp ở 
 nhiều góc độ và biểu cảm khác nhau, giúp tăng độ bao phủ và tính ổn định của 
@@ -719,8 +719,8 @@ Haar Cascade +
 LBPH
 HOG + SVM 
 (dlib)
-face_recognition 
-(ResNet-34)
+Hybrid Model
+(YOLOv8+FaceNet)
 Độ chính xác
 ~75–85%
 ~85–90%
@@ -754,10 +754,11 @@ Trung bình
 
 	Haar Cascade kết hợp LBPH bị loại vì độ chính xác không đáp ứng ngưỡng 
 90% yêu cầu, đặc biệt trong điều kiện ánh sáng phòng lab không đồng đều. HOG + 
-SVM cải thiện hơn nhưng vẫn dưới mức yêu cầu và khó tích hợp hơn. Thư viện 
-face_recognition dựa trên mô hình ResNet-34 của dlib được chọn vì đạt độ chính xác 
-cao nhất trong điều kiện thực tế, chỉ cần 15–20 ảnh mỗi người để đăng ký, API đơn 
-giản rút ngắn thời gian phát triển, và được cộng đồng kiểm chứng rộng rãi.
+SVM cải thiện hơn nhưng vẫn dưới mức yêu cầu và khó tích hợp hơn. Kiến trúc 
+Hybrid Model kết hợp YOLOv8 (phát hiện khuôn mặt) và FaceNet InceptionResnetV1 
+(trích xuất vector embedding 512 chiều) được chọn vì đạt độ chính xác cao nhất trong 
+điều kiện thực tế, chỉ cần 15–20 ảnh mỗi người để đăng ký, và được cộng đồng 
+kiểm chứng rộng rãi.
 2.4.3. Lựa Chọn Kiến Trúc Xử Lý
 	Quyết định quan trọng nhất trong thiết kế hệ thống là nơi thực hiện nhận diện 
 khuôn mặt - trực tiếp trên ESP32-S3 hay trên server bên ngoài:
@@ -856,7 +857,7 @@ Cao hơn
 Thấp (~50.000–80.000đ)
 Phù hợp bảo mật phòng 
 lab
-lab Không (mất điện = mở 
+Không (mất điện = mở 
 cửa)
 Có (mất điện = cửa vẫn 
 khóa)
@@ -992,7 +993,7 @@ trong quá trình phát triển sản phẩm. Ngoài ra, mạch còn tích hợp
 RST, hỗ trợ việc kích hoạt chế độ nạp chương trình (Bootloader) một cách nhanh 
 chóng.
 	Trong hệ thống này, ESP32-S3 đảm nhận vai trò thiết bị đầu cuối IoT: điều 
-phối toàn bộ hoạt động tại cửa - chụp ảnh khuôn mặt qua camera OV2640, đóng gói 
+phối toàn bộ hoạt động tại cửa - chụp ảnh khuôn mặt qua camera OV3660, đóng gói 
 và truyền lên server Python qua giao thức HTTP trong mạng LAN, nhận kết quả nhận 
 diện trả về và ra lệnh điều khiển relay cùng màn hình LCD.
 3.2.2. Module Relay
@@ -1233,12 +1234,13 @@ khóa phòng — và tự động biến mất sau 4 giây.
           Kết xuất dữ liệu động: Tạo và cập nhật nội dung HTML cho danh sách nhật ký, 
 bảng người dùng và bảng lịch sử thông qua cơ chế thao tác DOM, thay thế nội dung 
 trực tiếp trên trang mà không yêu cầu tải lại toàn bộ giao diện.
-3.3.3. Xử Lý Phía Server - Python Flask
-          Tầng xử lý phía server được xây dựng bằng Python Flask một micro web 
-framework nhẹ, linh hoạt, phù hợp với các ứng dụng REST API quy mô vừa và nhỏ. 
-Flask cung cấp hệ thống định tuyến endpoint đơn giản, cho phép tổ chức các chức 
-năng server theo nhóm rõ ràng, đồng thời dễ dàng tích hợp với các thư viện xử lý ảnh 
-và trí tuệ nhân tạo trong hệ sinh thái Python.
+3.3.3. Xử Lý Phía Server - Python FastAPI
+          Tầng xử lý phía server được xây dựng bằng Python FastAPI kết hợp ASGI 
+server Uvicorn — một framework hiện đại, hiệu suất cao, phù hợp với các ứng dụng 
+REST API và WebSocket thời gian thực. FastAPI cung cấp hệ thống định tuyến 
+endpoint đơn giản, hỗ trợ lập trình bất đồng bộ (async/await), cho phép tổ chức các 
+chức năng server theo nhóm rõ ràng, đồng thời dễ dàng tích hợp với các thư viện xử 
+lý ảnh và trí tuệ nhân tạo trong hệ sinh thái Python.
           Các thành phần chính của backend được tổ chức theo mô-đun chức năng như 
 sau:
           Mô-đun chính (main.py) là điểm khởi động của toàn bộ server, chứa hệ thống 
@@ -1285,10 +1287,11 @@ kế để đảm bảo không xảy ra xung đột dữ liệu khi có nhiều 
           Mô-đun giao tiếp ESP32 xử lý toàn bộ luồng dữ liệu giữa server và thiết bị phần 
 cứng, bao gồm nhận ảnh JPEG từ ESP32-S3-CAM và gửi lệnh điều khiển ngược lại 
 đến LCD, relay và buzzer thông qua giao thức HTTP.
-          Mô-đun nhận diện khuôn mặt tích hợp pipeline trí tuệ nhân tạo sử dụng thư viện 
-face_recognition với mô hình ResNet-34 của dlib — thực hiện phát hiện vị trí khuôn 
-mặt, trích xuất vector đặc trưng 128 chiều và so khớp với cơ sở dữ liệu. Mô-đun được 
-thiết kế chạy độc lập để không ảnh hưởng đến luồng xử lý chính của server.
+          Mô-đun nhận diện khuôn mặt tích hợp pipeline trí tuệ nhân tạo sử dụng kiến trúc 
+Hybrid Model gồm YOLOv8 (phát hiện khuôn mặt), MediaPipe (căn chỉnh landmarks) 
+và FaceNet InceptionResnetV1 (trích xuất vector đặc trưng 512 chiều) — thực hiện 
+phát hiện, căn chỉnh và so khớp với cơ sở dữ liệu. Mô-đun được thiết kế chạy trong 
+thread pool để không ảnh hưởng đến luồng xử lý chính của server.
           Mô-đun an ninh quản lý các chính sách kiểm soát truy cập, theo dõi số lần xác 
 thực thất bại và kích hoạt cảnh báo khi phát hiện hành vi bất thường. Mô-đun hỗ trợ 
 gửi thông báo từ xa qua Telegram Bot API khi có sự kiện an ninh cần xử lý khẩn cấp.
@@ -1371,15 +1374,15 @@ và GND của LCD 1602 I2C được nối tương ứng với đường ray +5V 
 (+) của còi buzzer được cấp nguồn gián tiếp qua GPIO của ESP32-S3, chân (–) nối về 
 GND chung.
 4.1.2.2. Kết Nối Camera OV3660 với ESP32-S3-CAM
-	Camera OV2640 được tích hợp sẵn trên module ESP32-S3-CAM và giao tiếp 
+	Camera OV3660 được tích hợp sẵn trên module ESP32-S3-CAM và giao tiếp 
 với vi điều khiển qua giao diện DVP (Digital Video Port) 8-bit song song. Toàn bộ 
 chân kết nối camera được định nghĩa trong file camera_pins.h của firmware và không 
 cần đấu nối thêm. Các chân GPIO thuộc giao diện DVP và PSRAM đã bị chiếm dụng 
 hoàn toàn — tuyệt đối không sử dụng các chân này cho mục đích khác để tránh xung 
 đột phần cứng.
-	Camera được cấu hình hoạt động ở độ phân giải QVGA (320×240 pixel), định 
-dạng xuất JPEG với chất lượng điều chỉnh được, sử dụng bộ nhớ PSRAM 8MB làm 
-bộ đệm khung hình để đảm bảo luôn lấy được frame mới nhất mà không bị treo 
+	Camera được cấu hình hoạt động ở độ phân giải VGA (640×480 pixel), định 
+dạng xuất JPEG với chất lượng 12, sử dụng bộ nhớ PSRAM 8MB làm bộ đệm khung 
+hình (double buffering) để đảm bảo luôn lấy được frame mới nhất mà không bị treo 
 camera.
 4.1.2.3. Kết Nối LCD 1602 I2C với ESP32-S3-CAM
 	LCD 1602 sử dụng module I2C tích hợp chip PCF8574, cho phép giao tiếp với 
@@ -1393,7 +1396,7 @@ thống:
 cần dùng sketch I2C Scanner để xác nhận địa chỉ thực tế của module đang sử dụng, vì 
 một số nhà sản xuất cấu hình địa chỉ 0x3F. Điện trở kéo lên (pull-up) 4.7kΩ được mắc 
 từ mỗi đường SDA và SCL về VCC 5V để đảm bảo mức logic ổn định trên đường 
-I2C. Tốc độ I2C được cấu hình ở 100 kHz (Standard Mode) trong firmware.
+I2C. Tốc độ I2C được cấu hình ở 50 kHz (hạ từ 100kHz xuống để chống nhiễu font chữ trên dây dài) trong firmware.
 4.1.2.4. Kết Nối Module Relay với ESP32-S3-CAM và Khóa Điện Từ JF-0826B
 	Chân IN của module relay nối với GPIO 3 của ESP32-S3-CAM — đây là chân 
 Digital Output điều khiển đóng/ngắt relay. Khi GPIO 3 xuất mức HIGH (3.3V), 

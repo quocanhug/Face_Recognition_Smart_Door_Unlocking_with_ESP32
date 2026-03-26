@@ -3,16 +3,20 @@ const SLIDES = [
 
   // ===== SLIDE 1: COVER =====
   `<div class="flex flex-col items-center justify-center text-center min-h-[70vh]">
-  <p class="text-[11px] font-bold text-slate-500 uppercase tracking-[.25em] mb-2">Trường Đại học Công Nghệ Kỹ Thuật TP.HCM · Môn: Vạn Vật Kết Nối</p>
-  <p class="text-xs text-slate-600 mb-12">HK1 2025-2026 · Nhóm 02</p>
-  <h1 class="sl-title text-center" style="font-size:clamp(2.2rem,5vw,3.8rem)">Hệ Thống Giám Sát An Ninh<br>& Điểm Danh Thời Gian Thực<br><span class="grad">Bằng Nhận Diện Khuôn Mặt</span></h1>
-  <p class="text-slate-400 text-sm mb-12">ESP32-S3-CAM · Python Flask · Face Recognition · IoT</p>
-  <div class="flex gap-8 justify-center flex-wrap mb-8">
-    <div class="flex flex-col items-center gap-1"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black">A</div><span class="text-sm font-semibold">Đinh Quốc Anh</span><span class="text-[10px] text-slate-500 font-mono">24133003</span></div>
-    <div class="flex flex-col items-center gap-1"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black">H</div><span class="text-sm font-semibold">Lý Gia Hân</span><span class="text-[10px] text-slate-500 font-mono">24133016</span></div>
-    <div class="flex flex-col items-center gap-1"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black">T</div><span class="text-sm font-semibold">Đỗ Thanh Thành Tài</span><span class="text-[10px] text-slate-500 font-mono">24133050</span></div>
+  <div class="mb-5 text-sm font-bold text-slate-400 uppercase tracking-[.15em] leading-relaxed">
+    <p class="text-lg text-slate-300">Trường Đại Học Công Nghệ Kỹ Thuật TP.HCM</p>
+    <p class="text-[#00d2ff]">Khoa Công Nghệ Thông Tin</p>
+    <p>Môn Học: Vạn Vật Kết Nối</p>
   </div>
-  <div class="gc inline-flex px-6 py-2 text-sm">GVHD: <strong class="text-white ml-1">ThS. Đinh Công Đoan</strong></div>
+  <p class="text-base text-slate-500 mb-8">HK1 2025-2026 · Nhóm 02</p>
+  <h1 class="sl-title text-center" style="font-size:clamp(2.2rem,5vw,3.8rem)">Hệ Thống Giám Sát An Ninh<br>& Điểm Danh Thời Gian Thực<br><span class="grad">Bằng Nhận Diện Khuôn Mặt</span></h1>
+  <p class="text-slate-400 text-sm mb-12">ESP32-S3-CAM · Python FastAPI · YOLOv8 + FaceNet · IoT</p>
+  <div class="flex gap-16 justify-center flex-wrap mb-8">
+    <div class="flex flex-col items-center gap-3"><div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black text-3xl">A</div><span class="text-xl font-semibold">Đinh Quốc Anh</span><span class="text-sm text-slate-500 font-mono">24133003</span></div>
+    <div class="flex flex-col items-center gap-3"><div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black text-3xl">H</div><span class="text-xl font-semibold">Lý Gia Hân</span><span class="text-sm text-slate-500 font-mono">24133016</span></div>
+    <div class="flex flex-col items-center gap-3"><div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black text-3xl">T</div><span class="text-xl font-semibold">Đỗ Thanh Thành Tài</span><span class="text-sm text-slate-500 font-mono">24133050</span></div>
+  </div>
+  <div class="gc inline-flex px-8 py-3 text-lg items-baseline mt-2">GVHD: <strong class="text-white ml-2 text-xl">ThS. Đinh Công Đoan</strong></div>
 </div>`,
 
   // ===== SLIDE 2: MỤC LỤC =====
@@ -76,7 +80,7 @@ const SLIDES = [
   <div class="gc text-center stat-hover"><p class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#00d2ff] to-[#0061ff]">≤5%</p><p class="text-xs text-slate-500 mt-1">False Acceptance Rate</p></div>
 </div>
 <ul class="list-feat">
-  <li><span class="text-[#00d2ff]">📸</span> Lập trình ESP32-S3-CAM thu thập ảnh JPEG và truyền lên server qua HTTP POST</li>
+  <li><span class="text-[#00d2ff]">📸</span> Lập trình ESP32-S3-CAM cung cấp HTTP endpoint, server chủ động GET /capture lấy ảnh JPEG</li>
   <li><span class="text-[#00d2ff]">🧠</span> Xây dựng server Python với endpoint nhận diện khuôn mặt trả về JSON</li>
   <li><span class="text-[#00d2ff]">👥</span> CSDL khuôn mặt: tối thiểu 5 người, 15–20 ảnh/người</li>
   <li><span class="text-[#00d2ff]">🔓</span> Điều khiển relay + khóa điện từ JF-0826B mở 3 giây khi nhận diện thành công</li>
@@ -94,7 +98,7 @@ const SLIDES = [
   </div>
   <p class="text-[#00d2ff] text-xs font-bold">⬇️ HTTP / WebSocket ⬇️</p>
   <div class="flex gap-4 flex-wrap justify-center">
-    <div class="gc text-center px-6 py-4 stat-hover" style="border-color:rgba(139,92,246,.25)"><span class="material-symbols-outlined text-purple-400 text-2xl">psychology</span><p class="text-sm font-bold mt-2">AI Server (Python)</p><p class="text-[10px] text-slate-500">FastAPI + Face Recognition</p></div>
+    <div class="gc text-center px-6 py-4 stat-hover" style="border-color:rgba(139,92,246,.25)"><span class="material-symbols-outlined text-purple-400 text-2xl">psychology</span><p class="text-sm font-bold mt-2">AI Server (Python)</p><p class="text-[10px] text-slate-500">FastAPI + YOLOv8 + FaceNet</p></div>
     <div class="gc text-center px-6 py-4 stat-hover" style="border-color:rgba(139,92,246,.25)"><span class="material-symbols-outlined text-purple-400 text-2xl">database</span><p class="text-sm font-bold mt-2">Database</p><p class="text-[10px] text-slate-500">SQLite + encodings.pkl</p></div>
   </div>
   <p class="text-[#00d2ff] text-xs font-bold">⬇️ HTTP REST API ⬇️</p>
@@ -110,10 +114,10 @@ const SLIDES = [
 <h2 class="sl-title">6 Khối <span class="grad">Chức Năng Chính</span></h2>
 <div class="sl-grid c3">
   <div class="gc stat-hover"><span class="ic">🧠</span><h4>Khối Xử lý Trung tâm</h4><p>ESP32-S3-CAM N16R8 — "bộ não" phần cứng, điều phối camera, relay, LCD</p></div>
-  <div class="gc stat-hover"><span class="ic">📷</span><h4>Khối Đầu vào</h4><p>Camera OV3660 QVGA 320×240, nút nhấn kích hoạt, ảnh JPEG 10-25KB</p></div>
+  <div class="gc stat-hover"><span class="ic">📷</span><h4>Khối Đầu vào</h4><p>Camera OV3660 VGA 640×480, nhận diện liên tục, ảnh JPEG 10-25KB</p></div>
   <div class="gc stat-hover"><span class="ic">⚡</span><h4>Khối Chấp hành</h4><p>Module Relay 5V + Khóa JF-0826B 12V, Fail-Secure, tự khóa sau 3s</p></div>
-  <div class="gc stat-hover"><span class="ic">🖥️</span><h4>Khối Server</h4><p>Python FastAPI + face_recognition + ResNet-34, pipeline AI nhận diện</p></div>
-  <div class="gc stat-hover"><span class="ic">📡</span><h4>Khối Giao tiếp mạng</h4><p>Wi-Fi 802.11 b/g/n, HTTP POST image/jpeg, JSON ≤500ms</p></div>
+  <div class="gc stat-hover"><span class="ic">🖥️</span><h4>Khối Server</h4><p>Python FastAPI + YOLOv8 + FaceNet InceptionResnetV1, pipeline AI 512-D</p></div>
+  <div class="gc stat-hover"><span class="ic">📡</span><h4>Khối Giao tiếp mạng</h4><p>Wi-Fi 802.11 b/g/n, Server GET /capture, HTTP REST API, JSON ≤500ms</p></div>
   <div class="gc stat-hover"><span class="ic">📺</span><h4>Khối Hiển thị</h4><p>LCD 1602 I2C (PCF8574), 2 dây SDA/SCL, phản hồi tức thì</p></div>
 </div>`,
 
@@ -162,7 +166,7 @@ const SLIDES = [
     <table><thead><tr><th>Thuật toán</th><th>Chính xác</th><th>Tốc độ</th></tr></thead><tbody>
       <tr><td>Haar + LBPH</td><td>75-85%</td><td>Rất nhanh</td></tr>
       <tr><td>HOG + SVM</td><td>85-90%</td><td>Nhanh</td></tr>
-      <tr><td class="text-[#00d2ff] font-bold">face_recognition ✅</td><td class="text-[#00d2ff] font-bold">92-97%</td><td>1-2s/ảnh</td></tr>
+      <tr><td class="text-[#00d2ff] font-bold">Hybrid Model (YOLOv8+FaceNet) ✅</td><td class="text-[#00d2ff] font-bold">92-97%</td><td>1-2s/ảnh</td></tr>
     </tbody></table>
   </div>
 </div>
@@ -185,7 +189,7 @@ const SLIDES = [
   <div class="gc stat-hover">
     <h4>📺 LCD 1602 I2C</h4>
     <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:150px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/lcd-1602.png" alt="LCD 1602" style="max-height:150px;max-width:100%;object-fit:contain;border-radius:8px"></div>
-    <p>16×2 ký tự, chip PCF8574, I2C 100kHz, chỉ 2 dây SDA+SCL</p>
+    <p>16×2 ký tự, chip PCF8574, I2C 50kHz, chỉ 2 dây SDA+SCL</p>
   </div>
   <div class="gc stat-hover">
     <h4>🔓 Khóa Chốt Điện Từ JF-0826B</h4>
@@ -200,7 +204,7 @@ const SLIDES = [
   <div class="gc stat-hover">
     <h4>🔔 Buzzer Active 5V</h4>
     <div class="my-3" style="display:flex;justify-content:center;align-items:center;min-height:150px;background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden"><img src="images/buzzer.png" alt="Buzzer Active 5V" style="max-height:150px;max-width:100%;object-fit:contain;border-radius:8px"></div>
-    <p>3 pattern: 1 beep thành công, 2 beep từ chối, 3 beep lỗi</p>
+    <p>4 pattern: 1 beep thành công, 2 beep từ chối, 3 beep đăng ký, alarm 30s</p>
   </div>
 </div>`,
 
@@ -238,8 +242,8 @@ const SLIDES = [
   <div class="gc" style="border-left:4px solid rgba(34,197,94,.4)">
     <h4 class="text-green-400 flex items-center gap-2 mb-4"><span class="material-symbols-outlined">check_circle</span> Nhận diện thành công</h4>
     <ul class="list-feat">
-      <li><span>1️⃣</span> Nhấn nút → Camera chụp JPEG</li>
-      <li><span>2️⃣</span> HTTP POST → Server xử lý AI</li>
+      <li><span>1️⃣</span> Server GET /capture → Camera chụp JPEG</li>
+      <li><span>2️⃣</span> Pipeline AI: YOLOv8 → FaceNet 512-D</li>
       <li><span>3️⃣</span> JSON → Tên người dùng (score ≥ 0.80)</li>
       <li><span>4️⃣</span> GPIO HIGH → Relay → Khóa mở 3s</li>
       <li><span>5️⃣</span> LCD: "[Tên] / [MSSV] "</li>
@@ -371,16 +375,9 @@ const SLIDES = [
 <div class="callout"><p>🔐 <strong>MFA (Multi-Factor Authentication):</strong> Tích hợp RFID hoặc vân tay tại biên (Edge), đảm bảo vận hành khi mất kết nối Server</p></div>`,
 
   // ===== SLIDE 20: CẢM ƠN =====
-  `<div class="flex flex-col items-center justify-center text-center min-h-[60vh]">
+  `<div class="flex flex-col items-center justify-center text-center min-h-[75vh]">
   <p class="text-6xl mb-6" style="animation:float 3s ease-in-out infinite">🎓</p>
-  <h1 class="sl-title text-center" style="font-size:clamp(2rem,5vw,3.5rem)"><span class="grad">Cảm Ơn Thầy Và Các Bạn</span><br>Đã Lắng Nghe!</h1>
-  <p class="text-slate-400 text-sm mb-10">Hệ thống giám sát an ninh & điểm danh thời gian thực bằng nhận diện khuôn mặt</p>
-  <div class="flex gap-8 justify-center flex-wrap mb-8">
-    <div class="flex flex-col items-center gap-1"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0061ff] flex items-center justify-center text-slate-950 font-black text-sm">A</div><span class="text-sm font-semibold">Đinh Quốc Anh</span></div>
-    <div class="flex flex-col items-center gap-1"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-[#0061ff] flex items-center justify-center text-white font-black text-sm">H</div><span class="text-sm font-semibold">Lý Gia Hân</span></div>
-    <div class="flex flex-col items-center gap-1"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-[#00d2ff] flex items-center justify-center text-slate-950 font-black text-sm">T</div><span class="text-sm font-semibold">Đỗ Thanh Thành Tài</span></div>
-  </div>
-  <div class="gc inline-flex px-6 py-2 text-sm">GVHD: <strong class="text-white ml-1">ThS. Đinh Công Đoan</strong> · Nhóm 02 · HK1 2025-2026</div>
+  <h1 class="sl-title text-center" style="font-size:clamp(2rem,5vw,3.5rem); line-height: 1.3"><span class="grad">Cảm Ơn Thầy Và Các Bạn</span><br>Đã Lắng Nghe!</h1>
 </div>
 <style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}</style>`
 

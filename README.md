@@ -289,5 +289,8 @@ Script sẽ import users + embeddings từ `cv/user_database.pkl` vào SQLite.
 ---
 
 ## 👥 Tác Giả
+ĐINH QUỐC ANH
+LÝ GIA HÂN
+ĐỖ THANH THÀNH TÀI
 
 Dự án IoT - Hệ thống điểm danh thông minh bằng nhận diện khuôn mặt.

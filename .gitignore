@@ -9,8 +9,6 @@ attendance_logs/
 dataset/
 *.db
 
-# Secrets (chứa Telegram bot token)
-security_config.json
 
 # AI Models (auto-download)
 *.pt
@@ -23,3 +21,6 @@ security_config.json
 # OS
 Thumbs.db
 .DS_Store
+
+#gitignore
+.gitignore

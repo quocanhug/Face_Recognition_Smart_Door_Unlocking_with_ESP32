@@ -1,0 +1,9 @@
+{
+    "night_start_hour": 18,
+    "night_end_hour": 6,
+    "deny_threshold": 2,
+    "telegram_bot_token": "your_bot_token",
+    "telegram_chat_id": "your_chat_id",
+    "enable_notification": true,
+    "enable_night_alarm": true
+}
